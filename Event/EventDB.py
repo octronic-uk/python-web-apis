@@ -19,6 +19,7 @@ from datetime import datetime
 from bson.objectid import ObjectId
 from pymongo  import MongoClient
 import Constants
+import logging
 
 
 class EventDB:
@@ -26,18 +27,20 @@ class EventDB:
         This class will connect to a MongoDB instance that holds data for a 'Rated' site.
         The class
     """
-    def __init__(self,host='localhost',port=27017,database='EventTrackerDB'):
+    def __init__(self,host=Constants.localhost,port=Constants.default_mongo_port,database=Constants.default_db):
         """
             :param host: Mongo Host
             :param port: Mongo Port
             :param database: Mongo Database
         """
+        self.log = logging.getLogger(self.__class__.__name__)
         self.host = host
         self.port = port
         self.database = database
         self.mongo_client = MongoClient(self.host,self.port)
         self.mongo_database = self.mongo_client[self.database]
         self.mongo_events_collection = self.mongo_database[Constants.event_collection_name]
+        self.log.info("Created EventDB. Host: %s, Port: %d, Database: %s",self.host,self.port,self.database)
 
     def insert_event(self, user, session, event):
         '''
@@ -46,6 +49,7 @@ class EventDB:
             :param event:  Event to record
             :return:        Inserted Record
         '''
+        self.log.info("Inserting event %s %s %s",user,session,event)
         return self.mongo_events_collection.insert_one({
             Constants.user    : ObjectId(user),
             Constants.session : ObjectId(session),

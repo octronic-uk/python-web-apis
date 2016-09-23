@@ -46,12 +46,12 @@ class TestEventDB(unittest.TestCase):
             TestConstants.event
         )
         if test_event != None:
-            self.log.debug("test_insert_event result._id",test_event.inserted_id)
+            self.log.info("test_insert_event result._id",test_event.inserted_id)
             self.assertIsNotNone(test_event.inserted_id)
         else:
             self.assertTrue(False)
 
 
 if __name__ == '__main__':
-    logging.basicConfig(level=logging.DEBUG)
+    logging.basicConfig(level=logging.INFO)
     unittest.main()

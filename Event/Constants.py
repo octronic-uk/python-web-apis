@@ -21,4 +21,7 @@ user = 'user'
 created = 'created'
 session = 'session'
 event = 'event'
+default_db = "__events__"
+localhost = 'localhost'
+default_mongo_port = 27017
 event_collection_name = "events"

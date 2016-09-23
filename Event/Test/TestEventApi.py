@@ -35,8 +35,8 @@ class TestEventApi(unittest.TestCase):
 
 
     def test_insert_event(self):
-        full_url = '/api/event'
-        self.log.debug("test_insert_event posting to", full_url)
+        full_url = '/event'
+        self.log.info("test_insert_event posting to %s", full_url)
 
         data = json.dumps({
             'user'    : str(TestConstants.user),
@@ -51,9 +51,9 @@ class TestEventApi(unittest.TestCase):
         result = self.api_client.post(full_url,headers=headers, data=data)
 
         self.assertEquals(result.status_code,201)
-        self.log.debug("test_insert_event", result)
+        self.log.info("test_insert_event result: %s", result)
 
 
 if __name__ == '__main__':
-    logging.basicConfig(level=logging.DEBUG)
+    logging.basicConfig(level=logging.INFO)
     unittest.main()

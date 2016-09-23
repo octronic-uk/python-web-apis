@@ -19,18 +19,22 @@ from flask import Flask
 from flask import request
 from EventDB import EventDB
 import Constants
+import logging
 
 events_db = EventDB()
 app = Flask(__name__)
 
-@app.route('/api/event',methods=['POST'])
+logging.basicConfig(level=logging.DEBUG)
+log = logging.getLogger(__name__)
+
+@app.route('/event',methods=['POST'])
 def api_event():
     """
-        Insert an event into the EventTracker collection
+        Insert an event into the Event collection
     """
+    log.info("POST on /event")
     if request.headers['Content-Type'] == 'application/json':
         record = request.json
-        print(record)
         events_db.insert_event(
             user=record[Constants.user],
             event=record[Constants.event],
@@ -38,7 +42,5 @@ def api_event():
         )
         return "Event Created", 201
     else:
+        log.error("POST on /event, bad request")
         return "Bad Request", 400
-
-if __name__ == '__main__':
-    app.run(port=5001)
