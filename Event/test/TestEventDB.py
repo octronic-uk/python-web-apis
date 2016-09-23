@@ -18,7 +18,7 @@
 import unittest
 import logging
 from EventDB import EventDB
-import Test.TestConstants as TestConstants
+import test.TestConstants as TestConstants
 
 
 class TestEventDB(unittest.TestCase):
@@ -31,14 +31,14 @@ class TestEventDB(unittest.TestCase):
 
     def test_create_object(self):
         """
-            Test Creating a RatedDatabaseConnector object
+            test Creating a RatedDatabaseConnector object
         """
         self.assertIsNotNone(self.event_tracker_db)
 
 
     def test_insert_event(self):
         """
-            Test inserting a event record
+            test inserting a event record
         """
         test_event = self.event_tracker_db.insert_event(
             TestConstants.user,

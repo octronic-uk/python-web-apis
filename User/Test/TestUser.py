@@ -18,7 +18,7 @@
 import logging
 import unittest
 
-from Test import TestConstants
+from test import TestConstants
 from User import User
 
 
@@ -46,7 +46,7 @@ class TestUser(unittest.TestCase):
         self.assertEqual(user1,user2)
 
 
-# Unit Test Harness
+# Unit test Harness
 if __name__ == '__main__':
     logging.basicConfig(level=logging.DEBUG)
     unittest.main()

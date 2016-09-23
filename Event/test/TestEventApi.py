@@ -19,7 +19,7 @@ import json
 import unittest
 import logging
 import EventApi
-import Test.TestConstants as TestConstants
+import test.TestConstants as TestConstants
 
 
 class TestEventApi(unittest.TestCase):

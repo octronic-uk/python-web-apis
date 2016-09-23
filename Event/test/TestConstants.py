@@ -18,4 +18,4 @@ from bson.objectid import ObjectId
 
 user      = ObjectId('221299887766554433221100')
 session   = ObjectId('112233445566778899002122')
-event     = "Test Event"
+event     = "test Event"

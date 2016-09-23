@@ -24,7 +24,7 @@ from UserDB import UserDB
 
 class TestUserDB(unittest.TestCase):
     """
-        This class implements unit tests that Test the RatedDatabaseConnector class
+        This class implements unit tests that test the RatedDatabaseConnector class
     """
     def setUp(self):
         self.user_db = UserDB(database="UnitTest", collection="TestUserDB")
@@ -38,14 +38,14 @@ class TestUserDB(unittest.TestCase):
 
     def test_create_object(self):
         """
-            Test Creating a RatedDatabaseConnector object
+            test Creating a RatedDatabaseConnector object
         """
         self.assertIsNotNone(self.user_db.mongo_users_collection)
 
 
     def test_create_user(self):
         """
-            Test inserting a user
+            test inserting a user
         """
         self.test_user = self.user_db.create_user(self.test_create_user.__name__,TestConstants.password)
         if self.test_user is not None:
@@ -57,7 +57,7 @@ class TestUserDB(unittest.TestCase):
 
     def test_get_user_by_id(self):
         """
-            Test retrieving a user by their id
+            test retrieving a user by their id
         """
         self.test_user = self.user_db.create_user(self.test_get_user_by_id.__name__, TestConstants.password)
         retrieved_user = self.user_db.get_user_by_id(self.test_user.id)
@@ -72,7 +72,7 @@ class TestUserDB(unittest.TestCase):
 
     def test_get_user_by_username(self):
         """
-            Test retrieving a user by their username
+            test retrieving a user by their username
         """
         self.test_user = self.user_db.create_user(TestConstants.username+"_",TestConstants.password)
         retrieved_user = self.user_db.get_user_by_username(TestConstants.username+"_")
