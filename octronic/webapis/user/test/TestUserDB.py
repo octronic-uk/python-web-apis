@@ -39,7 +39,7 @@ class TestUserDB(unittest.TestCase):
         """
             test Creating a RatedDatabaseConnector object
         """
-        self.assertIsNotNone(self.user_db.mongo_users_collection)
+        self.assertIsNotNone(self.user_db.mongo_collection)
 
 
     def test_create_user(self):

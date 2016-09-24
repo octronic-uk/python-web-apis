@@ -1,5 +1,5 @@
 #
-# TestEventApi.py
+# TestSession.py
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,45 +15,52 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import json
 import logging
 import unittest
-from octronic.webapis.event import EventApi
-from octronic.webapis.event.test import TestConstants
+import time
+from octronic.webapis.session.Session import Session
 
 
-class TestEventApi(unittest.TestCase):
+class TestSession(unittest.TestCase):
 
 
     def setUp(self):
         self.log = logging.getLogger(self.__class__.__name__)
-        self.api_client = EventApi.app.test_client()
 
 
     def tearDown(self):
         pass
 
 
-    def test_insert_event(self):
-        full_url = '/event'
-        self.log.info("test_insert_event posting to %s", full_url)
-
-        data = json.dumps({
-            'user'    : str(TestConstants.user),
-            'event'  : TestConstants.event,
-            'session' : str(TestConstants.session),
-        }).encode('utf-8')
-
-        headers = {
-            "Content-Type": "application/json"
-        }
-
-        result = self.api_client.post(full_url,headers=headers, data=data)
-
-        self.assertEquals(result.status_code,201)
-        self.log.info("test_insert_event result: %s", result)
+    def test_has_expired(self):
+        session = Session(expire_after_sec=5)
+        self.log.info(session)
+        time.sleep(4)
+        self.assertFalse(session.has_expired())
+        time.sleep(4)
+        self.assertTrue(session.has_expired())
 
 
+    def test_renew(self):
+        session = Session(expire_after_sec=5)
+
+        self.assertFalse(session.has_expired())
+        self.log.info("%d %s",1,session)
+
+        time.sleep(5)
+        self.assertTrue(session.has_expired())
+        self.log.info("%d %s",2,session)
+
+        session.renew(4)
+        self.assertFalse(session.has_expired())
+        self.log.info("%d %s",3,session)
+
+        time.sleep(5)
+        self.assertTrue(session.has_expired())
+        self.log.info("%d %s",4,session)
+
+
+# Unit test Harness
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)
     unittest.main()

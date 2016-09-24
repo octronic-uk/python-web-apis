@@ -21,23 +21,26 @@ from octronic.webapis.user import Constants
 
 class User():
 
-    @classmethod
-    def from_record(cls,record):
-        return User(
+
+    def __init__(self, id=None, username=None, password_hash=None, created=None, email=None, record=None):
+        if record is not None:
+            self.from_record(record)
+        else:
+            self.id = id
+            self.username = username
+            self.password_hash = password_hash
+            self.created = created
+            self.email = email
+
+
+    def from_record(self,record):
+        return self.__init__(
             id = record[Constants.mongo_id],
             username = record[Constants.username],
             password_hash = record[Constants.password_hash],
             created = record[Constants.created],
             email = record[Constants.email]
         )
-
-
-    def __init__(self, id=None, username=None, password_hash=None, created=None, email=None):
-        self.id = id
-        self.username = username
-        self.password_hash = password_hash
-        self.created = created
-        self.email = email
 
 
     def verify_password(self,password):

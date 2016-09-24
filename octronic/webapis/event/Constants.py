@@ -15,13 +15,4 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-null = 'null'
-mongo_id = '_id'
-user = 'user'
-created = 'created'
-session = 'session'
-event = 'event'
-default_db = "Octronic_UnitTests"
-localhost = 'localhost'
-default_mongo_port = 27017
-event_collection_name = "events"
+collection_name = "events"

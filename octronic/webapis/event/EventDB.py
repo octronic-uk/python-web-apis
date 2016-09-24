@@ -15,33 +15,30 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import logging
 from datetime import datetime
 from bson.objectid import ObjectId
-from pymongo  import MongoClient
+from octronic.webapis.common import Constants as CommonConstants
 from octronic.webapis.event import Constants
+from octronic.webapis.common.MongoInterface import MongoInterface
 
 
-class EventDB:
+class EventDB(MongoInterface):
     """
         This class will connect to a MongoDB instance that holds data for a 'Rated' site.
         The class
     """
-    def __init__(self, host=Constants.localhost, port=Constants.default_mongo_port,
-                 database=Constants.default_db):
+    def __init__(self,
+                 host=CommonConstants.localhost,
+                 port=CommonConstants.mongo_port,
+                 database=CommonConstants.default_db):
         """
             :param host: Mongo Host
             :param port: Mongo Port
             :param database: Mongo Database
         """
-        self.log = logging.getLogger(self.__class__.__name__)
-        self.host = host
-        self.port = port
-        self.database = database
-        self.mongo_client = MongoClient(self.host,self.port)
-        self.mongo_database = self.mongo_client[self.database]
-        self.mongo_events_collection = self.mongo_database[Constants.event_collection_name]
-        self.log.info("Created EventDB. Host: %s, Port: %d, Database: %s",self.host,self.port,self.database)
+        super().__init__(host=host, port=port, database=database)
+        self.mongo_collection = self.mongo_database[Constants.collection_name]
+        self.log.info("Created EventDB %s",self)
 
     def insert_event(self, user, session, event):
         '''
@@ -51,9 +48,9 @@ class EventDB:
             :return:        Inserted Record
         '''
         self.log.info("Inserting event %s %s %s",user,session,event)
-        return self.mongo_events_collection.insert_one({
-            Constants.user    : ObjectId(user),
-            Constants.session : ObjectId(session),
-            Constants.event   : event,
-            Constants.created : datetime.now()
+        return self.mongo_collection.insert_one({
+            CommonConstants.user    : ObjectId(user),
+            CommonConstants.session : ObjectId(session),
+            CommonConstants.event   : event,
+            CommonConstants.created : datetime.now()
         })

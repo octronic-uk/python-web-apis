@@ -10,6 +10,7 @@ setup(name='webapis',
     url='https://octronic.co.uk/',
     packages=[
         'octronic.webapis.event',
+        'octronic.webapis.session',
         'octronic.webapis.user'
     ],
 )
