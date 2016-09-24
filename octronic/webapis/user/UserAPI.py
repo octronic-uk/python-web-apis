@@ -1,8 +1,8 @@
 from flask import Flask, abort, request, jsonify, g, url_for
 from flask_httpauth import HTTPBasicAuth
 
-import Constants
-from UserDB import UserDB
+from octronic.webapis.user import Constants
+from octronic.webapis.user import UserDB
 
 # initialization
 app = Flask(__name__)
@@ -23,7 +23,7 @@ def verify_password(username, password):
     return True
 
 
-@app.route('/api/users', methods=['POST'])
+@app.route('/users', methods=['POST'])
 def new_user():
     username = request.json.get('username')
     password = request.json.get('password')
@@ -39,7 +39,7 @@ def new_user():
         {'Location': url_for('get_user', id=user.id, _external=True)})
 
 
-@app.route('/api/users/<id>')
+@app.route('/users/<id>')
 def get_user(id):
     user = user_db.get_user_by_id(id)
     if not user:
@@ -49,7 +49,7 @@ def get_user(id):
     })
 
 
-@app.route('/api/resource')
+@app.route('/resource')
 @auth.login_required
 def get_resource():
     return jsonify({'data': 'Hello, %s!' % g.user.username})

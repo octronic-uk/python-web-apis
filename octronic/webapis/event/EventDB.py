@@ -15,11 +15,13 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+import logging
 from datetime import datetime
+
 from bson.objectid import ObjectId
 from pymongo  import MongoClient
+
 import Constants
-import logging
 
 
 class EventDB:
@@ -27,7 +29,8 @@ class EventDB:
         This class will connect to a MongoDB instance that holds data for a 'Rated' site.
         The class
     """
-    def __init__(self,host=Constants.localhost,port=Constants.default_mongo_port,database=Constants.default_db):
+    def __init__(self, host=Constants.localhost, port=Constants.default_mongo_port,
+                 database=Constants.default_db):
         """
             :param host: Mongo Host
             :param port: Mongo Port
@@ -44,9 +47,9 @@ class EventDB:
 
     def insert_event(self, user, session, event):
         '''
-            :param user:    User ID
+            :param user:    user ID
             :param session: Session ID
-            :param event:  Event to record
+            :param event:  event to record
             :return:        Inserted Record
         '''
         self.log.info("Inserting event %s %s %s",user,session,event)

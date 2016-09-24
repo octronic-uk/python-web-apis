@@ -1,5 +1,5 @@
 #
-# Constants.py
+# TestConstants.py
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -14,14 +14,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
+from bson.objectid import ObjectId
 
-null = 'null'
-mongo_id = '_id'
-user = 'user'
-created = 'created'
-session = 'session'
-username = 'username'
-email = 'email'
-secret_key = 'p2j25$c$w*$lp8d%amapqtwnx1j%!j7t-s%=vaw*c^%f*oml@p'
-password_hash = 'password_hash'
-users_collection_suffix = "_Users"
+user      = ObjectId('221299887766554433221100')
+session   = ObjectId('112233445566778899002122')
+event     = "test event"

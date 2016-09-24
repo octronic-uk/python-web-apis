@@ -20,8 +20,11 @@ mongo_id = '_id'
 user = 'user'
 created = 'created'
 session = 'session'
-event = 'event'
-default_db = "__events__"
+username = 'username'
+email = 'email'
+secret_key = 'p2j25$c$w*$lp8d%amapqtwnx1j%!j7t-s%=vaw*c^%f*oml@p'
+password_hash = 'password_hash'
+users_collection_name = "users"
+default_db = "Octronic_UnitTests"
 localhost = 'localhost'
 default_mongo_port = 27017
-event_collection_name = "events"

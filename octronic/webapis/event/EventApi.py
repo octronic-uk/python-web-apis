@@ -15,11 +15,13 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+import logging
+
+from event.EventDB import EventDB
 from flask import Flask
 from flask import request
-from EventDB import EventDB
+
 import Constants
-import logging
 
 events_db = EventDB()
 app = Flask(__name__)
@@ -30,7 +32,7 @@ log = logging.getLogger(__name__)
 @app.route('/event',methods=['POST'])
 def api_event():
     """
-        Insert an event into the Event collection
+        Insert an event into the event collection
     """
     log.info("POST on /event")
     if request.headers['Content-Type'] == 'application/json':
@@ -40,7 +42,7 @@ def api_event():
             event=record[Constants.event],
             session=record[Constants.session],
         )
-        return "Event Created", 201
+        return "event Created", 201
     else:
         log.error("POST on /event, bad request")
         return "Bad Request", 400
