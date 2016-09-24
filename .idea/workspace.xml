@@ -2,35 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9575e92f-ea22-4f0d-891d-4f2fd89d73b6" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/octronic/setup.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/octronic/webapis/event/test/TestConstants.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/octronic/webapis/event/test/TestEventApi.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/octronic/webapis/event/test/TestEventDB.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/octronic/webapis/event/test/__init__.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/octronic/webapis/user/__init__.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/octronic/webapis/user/test/TestConstants.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/octronic/webapis/user/test/TestUser.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/octronic/webapis/user/test/TestUserDB.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/octronic/webapis/user/test/__init__.py" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Event/TestConstants.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Event/TestEventApi.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Event/TestEventDB.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Event/setup.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/User/TestConstants.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/User/TestUser.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/User/TestUserDB.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/User/setup.py" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Event/Constants.py" afterPath="$PROJECT_DIR$/octronic/webapis/event/Constants.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Event/EventApi.py" afterPath="$PROJECT_DIR$/octronic/webapis/event/EventApi.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Event/EventDB.py" afterPath="$PROJECT_DIR$/octronic/webapis/event/EventDB.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Event/__init__.py" afterPath="$PROJECT_DIR$/octronic/__init__.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Event/test/__init__.py" afterPath="$PROJECT_DIR$/octronic/webapis/__init__.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/User/Constants.py" afterPath="$PROJECT_DIR$/octronic/webapis/user/Constants.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/User/User.py" afterPath="$PROJECT_DIR$/octronic/webapis/user/User.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/User/UserAPI.py" afterPath="$PROJECT_DIR$/octronic/webapis/user/UserAPI.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/User/UserDB.py" afterPath="$PROJECT_DIR$/octronic/webapis/user/UserDB.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/User/__init__.py" afterPath="$PROJECT_DIR$/octronic/webapis/event/__init__.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/python-web-apis.git.iml" afterPath="$PROJECT_DIR$/.idea/python-web-apis.git.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/jenkins.sh" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Event/test/TestConstants.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Event/test/TestEventApi.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Event/test/TestEventDB.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/User/Test/TestConstants.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/User/Test/TestUser.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/User/Test/TestUserDB.py" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="python-web-apis.git.iws" />
@@ -97,6 +75,7 @@
         <option value="$PROJECT_DIR$/User/Constants.py" />
         <option value="$PROJECT_DIR$/Event/Constants.py" />
         <option value="$PROJECT_DIR$/octronic/setup.py" />
+        <option value="$PROJECT_DIR$/jenkins.sh" />
       </list>
     </option>
   </component>
@@ -435,7 +414,14 @@
       <option name="project" value="LOCAL" />
       <updated>1474666510485</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="package refactoring">
+      <created>1474714709277</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1474714709277</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -506,7 +492,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="added setup.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="added setup.py" />
+    <MESSAGE value="package refactoring" />
+    <option name="LAST_COMMIT_MESSAGE" value="package refactoring" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -646,6 +633,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="414">
           <caret line="23" column="22" selection-start-line="23" selection-start-column="22" selection-end-line="23" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/jenkins.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="16" column="28" selection-start-line="16" selection-start-column="28" selection-end-line="16" selection-end-column="28" />
           <folding />
         </state>
       </provider>
