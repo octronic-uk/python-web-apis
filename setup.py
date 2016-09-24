@@ -2,7 +2,7 @@
 
 from distutils.core import setup
 
-setup(name='event',
+setup(name='webapis',
     version='1.0',
     description='Octronic Web APIs',
     author="Ash '80' Thompson",
