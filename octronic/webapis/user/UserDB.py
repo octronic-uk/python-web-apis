@@ -19,9 +19,8 @@ from datetime import datetime
 
 from bson.objectid import ObjectId
 from pymongo import MongoClient
-from usesr import Constants
-
-from User import User
+from octronic.webapis.user import Constants
+from octronic.webapis.user.User import User
 
 
 class UserDB:

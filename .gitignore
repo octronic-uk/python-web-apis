@@ -1,2 +1,7 @@
 __pycache__
 .DS_Store
+.pyenv
+pylint.out
+coverage.xml
+.coverage
+nosetests.xml

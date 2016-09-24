@@ -16,12 +16,11 @@
 #
 
 import logging
-
-from event.EventDB import EventDB
 from flask import Flask
 from flask import request
+from octronic.webapis.event.EventDB import EventDB
+from octronic.webapis.event import Constants
 
-import Constants
 
 events_db = EventDB()
 app = Flask(__name__)

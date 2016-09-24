@@ -17,10 +17,8 @@
 
 import logging
 import unittest
-
-from usesr.Test import TestConstants
-
-from User import User
+from octronic.webapis.user.test import TestConstants
+from octronic.webapis.user.User import User
 
 
 class TestUser(unittest.TestCase):

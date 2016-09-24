@@ -11,7 +11,6 @@ app.config['SECRET_KEY'] = Constants.secret_key
 # extensions
 auth = HTTPBasicAuth()
 user_db = UserDB()
-session_db = SessionDB()
 
 @auth.verify_password
 def verify_password(username, password):

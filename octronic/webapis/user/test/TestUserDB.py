@@ -18,8 +18,8 @@
 import logging
 import unittest
 
-from octronic.webapis.user import TestConstants
-from octronic.webapis.user import UserDB
+from octronic.webapis.user.test import TestConstants
+from octronic.webapis.user.UserDB import UserDB
 
 
 class TestUserDB(unittest.TestCase):

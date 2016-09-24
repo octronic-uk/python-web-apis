@@ -17,10 +17,8 @@
 
 import logging
 import unittest
-
-from event.EventDB import EventDB
-
-from test import TestConstants
+from octronic.webapis.event.EventDB import EventDB
+from octronic.webapis.event.test import TestConstants
 
 
 class TestEventDB(unittest.TestCase):

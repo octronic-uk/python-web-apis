@@ -16,7 +16,6 @@
 #
 
 from passlib.apps import custom_app_context as pwd_context
-
 from octronic.webapis.user import Constants
 
 

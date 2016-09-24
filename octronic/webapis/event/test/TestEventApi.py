@@ -18,10 +18,8 @@
 import json
 import logging
 import unittest
-
-from event import EventApi
-
-from test import TestConstants
+from octronic.webapis.event import EventApi
+from octronic.webapis.event.test import TestConstants
 
 
 class TestEventApi(unittest.TestCase):

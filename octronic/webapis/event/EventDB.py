@@ -17,11 +17,9 @@
 
 import logging
 from datetime import datetime
-
 from bson.objectid import ObjectId
 from pymongo  import MongoClient
-
-import Constants
+from octronic.webapis.event import Constants
 
 
 class EventDB:
