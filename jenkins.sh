@@ -15,6 +15,6 @@ which python
 which pip
 
 pip install ez_setup bson pymongo flask passlib flask_httpauth nosexcover pylint
-pip install ./octronic/
+pip install .
 nosetests --with-xcoverage --with-xunit --cover-package=octronic.webapis --cover-erase
 pylint -f parseable / | tee pylint.out
