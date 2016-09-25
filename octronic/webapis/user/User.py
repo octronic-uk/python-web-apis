@@ -16,6 +16,7 @@
 #
 
 from passlib.apps import custom_app_context as pwd_context
+from octronic.webapis.common import Constants as CommonConstants
 from octronic.webapis.user import Constants
 
 
@@ -35,10 +36,10 @@ class User():
 
     def from_record(self,record):
         return self.__init__(
-            id = record[Constants.mongo_id],
-            username = record[Constants.username],
+            id = record[CommonConstants.mongo_id],
+            username = record[CommonConstants.username],
             password_hash = record[Constants.password_hash],
-            created = record[Constants.created],
+            created = record[CommonConstants.created],
             email = record[Constants.email]
         )
 
@@ -50,6 +51,14 @@ class User():
     def hash_password(self,password):
         self.password_hash = pwd_context.encrypt(password)
         return self.password_hash
+
+    def generate_auth_token(self, expiration=600):
+        s = Serializer(Constants.secret_key, expires_in=expiration)
+        return s.dumps({
+            CommonConstants.session : self.id
+        })
+
+
 
 
     def __repr__(self):

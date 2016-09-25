@@ -29,41 +29,35 @@ class TestSessionDB(unittest.TestCase):
         self.log = logging.getLogger(self.__class__.__name__)
 
 
-    def tearDownClass(cls):
-        session_db = SessionDB()
-        session_db.delete_session(user_id=TestConstants.user)
-
-
     def test_create_object(self):
         self.assertIsNotNone(self.session_db.mongo_collection)
 
 
     def test_create_session(self):
-        session = self.session_db.create_session(user=TestConstants.user)
+        session = self.session_db.create_session(user_id=TestConstants.user)
         self.log.info("test_create_session: %s",session)
         self.assertIsNotNone(session)
 
 
     def test_get_sessions(self):
-        self.session_db.create_session(user=TestConstants.user)
-        self.session_db.create_session(user=TestConstants.user)
-        self.session_db.create_session(user=TestConstants.user)
-        self.session_db.create_session(user=TestConstants.user)
+        self.session_db.create_session(user_id=TestConstants.user)
+        self.session_db.create_session(user_id=TestConstants.user)
+        self.session_db.create_session(user_id=TestConstants.user)
+        self.session_db.create_session(user_id=TestConstants.user)
         retrieved_sessions = self.session_db.get_sessions(user_id=TestConstants.user)
         self.assertGreater(len(retrieved_sessions),0)
 
 
     def test_update_session(self):
-        session = self.session_db.create_session(TestConstants.user)
+        session = self.session_db.create_session(user_id=TestConstants.user)
         updated_session = self.session_db.update_session(session)
         self.assertEqual(session,updated_session)
 
     def test_delete_session(self):
         session = self.session_db.create_session(user_id=TestConstants.user)
         self.assertTrue(self.session_db.session_exists(session=session))
-        self.session_db.delete_sessions(session=session.id)
+        self.session_db.delete_sessions(session=session)
         self.assertFalse(self.session_db.session_exists(session=session))
-        self.assertFalse(self.session_db)
 
 
 

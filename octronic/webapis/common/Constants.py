@@ -18,6 +18,7 @@
 null = 'null'
 mongo_id = '_id'
 user = 'user'
+username = 'username'
 created = 'created'
 session = 'session'
 event = 'event'

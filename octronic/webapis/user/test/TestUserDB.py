@@ -17,13 +17,17 @@
 
 import logging
 import unittest
-
+import datetime
 from octronic.webapis.user.test import TestConstants
 from octronic.webapis.user.UserDB import UserDB
 
 
 class TestUserDB(unittest.TestCase):
 
+
+    @classmethod
+    def setUpClass(cls):
+        logging.basicConfig(level=logging.INFO)
 
     def setUp(self):
         self.user_db = UserDB()
@@ -59,7 +63,7 @@ class TestUserDB(unittest.TestCase):
             test retrieving a user by their id
         """
         self.test_user = self.user_db.create_user(self.test_get_user_by_id.__name__, TestConstants.password)
-        retrieved_user = self.user_db.get_user_by_id(self.test_user.id)
+        retrieved_user = self.user_db.get_user(user_id=self.test_user.id)
 
         if retrieved_user is not None:
             self.log.info("test_get_user_by_id %s",retrieved_user)
@@ -73,8 +77,9 @@ class TestUserDB(unittest.TestCase):
         """
             test retrieving a user by their username
         """
-        self.test_user = self.user_db.create_user(TestConstants.username + "_", TestConstants.password)
-        retrieved_user = self.user_db.get_user_by_username(TestConstants.username + "_")
+        uname = TestConstants.username + str(datetime.datetime.now())
+        self.test_user = self.user_db.create_user(username=uname, password=TestConstants.password)
+        retrieved_user = self.user_db.get_user(username=uname)
 
         if retrieved_user is not None:
             self.log.info("test_get_user_by_username %s",retrieved_user)
@@ -90,25 +95,24 @@ class TestUserDB(unittest.TestCase):
         new_username = "SomeTotallyNewUsername"
         self.test_user.username = new_username
         self.user_db.update_user(self.test_user)
-        retrieved_user = self.user_db.get_user_by_username(new_username)
+        retrieved_user = self.user_db.get_user(username=new_username)
         self.assertEqual(self.test_user,retrieved_user)
 
 
     def test_delete_user(self):
         self.test_user = self.user_db.create_user(TestConstants.username, TestConstants.password)
-        self.assertTrue(self.user_db.user_exists_by_id(self.test_user.id))
+        self.assertTrue(self.user_db.user_exists(user_id=self.test_user.id))
         self.user_db.delete_user(self.test_user)
-        self.assertFalse(self.user_db.user_exists_by_id(self.test_user.id))
+        self.assertFalse(self.user_db.user_exists(user_id=self.test_user.id))
 
 
     def test_user_exists(self):
         self.test_user = self.user_db.create_user(TestConstants.username, TestConstants.password)
-        self.assertTrue(self.user_db.user_exists_by_id(self.test_user.id))
+        self.assertTrue(self.user_db.user_exists(user_id=self.test_user.id))
         self.user_db.delete_user(self.test_user)
-        self.assertFalse(self.user_db.user_exists_by_id(self.test_user.id))
+        self.assertFalse(self.user_db.user_exists(user_id=self.test_user.id))
 
 
 # Unit test Harness
 if __name__ == '__main__':
-    logging.basicConfig(level=logging.INFO)
     unittest.main()

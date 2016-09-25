@@ -15,11 +15,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-mongo_id = '_id'
-user = 'user'
-created = 'created'
-username = 'username'
 email = 'email'
-secret_key = 'p2j25$c$w*$lp8d%amapqtwnx1j%!j7t-s%=vaw*c^%f*oml@p'
 password_hash = 'password_hash'
-user_collection_name = "users"
+password = 'password'
+collection_name = "users"

@@ -16,11 +16,11 @@
 #
 
 import datetime
-from bson.objectid import ObjectId
 from octronic.webapis.common.MongoInterface import MongoInterface
 from octronic.webapis.common import Constants as CommonConstants
 from octronic.webapis.session import Constants
 from octronic.webapis.session.Session import Session
+from itsdangerous import (TimedJSONWebSignatureSerializer as Serializer, BadSignature, SignatureExpired)
 
 
 class SessionDB(MongoInterface):
@@ -37,7 +37,6 @@ class SessionDB(MongoInterface):
         """
         super().__init__(host=host,port=port,database=database)
         self.mongo_collection = self.mongo_database[Constants.collection_name]
-        self.log.info("Created SessionDB %s", self)
 
 
     def create_session(self, user=None, user_id=None, time_to_live=Constants.time_to_live):
@@ -57,12 +56,12 @@ class SessionDB(MongoInterface):
 
         if user_arg is not None:
             inserted_session = self.mongo_collection.insert_one({
-                CommonConstants.user     : user,
+                CommonConstants.user     : user_arg,
                 CommonConstants.created  : now,
-                Constants.expire_after : expire,
+                Constants.expire_after   : expire,
             })
 
-            sessions = self.get_sessions(session=inserted_session)
+            sessions = self.get_sessions(session_id=inserted_session.inserted_id)
 
             if len(sessions) > 0:
                 return sessions[0]
@@ -73,18 +72,15 @@ class SessionDB(MongoInterface):
             return None
 
 
-    def get_sessions(self, session=None, user_id=None):
+    def get_sessions(self, session=None, session_id=None, user_id=None):
         records = None
         if session is not None:
             records = self.mongo_collection.find({CommonConstants.mongo_id : session.id})
+        elif session_id is not None:
+            records = self.mongo_collection.find({CommonConstants.mongo_id : session_id })
         elif user_id is not None:
             records = self.mongo_collection.find({CommonConstants.user : user_id })
         return [Session(record=record) for record in records]
-
-
-    def get_sessions_by_user_id(self,user_id):
-        record = self.mongo_collection.find({CommonConstants.user : ObjectId(user_id)})
-        return [Session(record=document) for document in record]
 
 
     def update_session(self,session):
@@ -101,7 +97,7 @@ class SessionDB(MongoInterface):
 
         sessions = self.get_sessions(session=session)
 
-        if len(sessions) > 0:
+        if sessions.count(False) > 0:
             return sessions[0]
         else:
             return None
@@ -117,3 +113,10 @@ class SessionDB(MongoInterface):
 
         return result
 
+
+    def session_exists(self,session=None):
+        if session is not None:
+           sessions = self.mongo_collection.find({CommonConstants.mongo_id: session.id})
+           return sessions.count(True) > 0
+        else:
+            return False

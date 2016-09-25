@@ -52,3 +52,7 @@ class Session():
                 "\tCreated: {}\n"
                 "\tExpire:  {}".format(self.id, self.user, self.created, self.expire_after)
         )
+
+
+    def __eq__(self, other):
+        return self.id == other.id

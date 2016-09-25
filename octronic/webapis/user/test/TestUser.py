@@ -23,13 +23,12 @@ from octronic.webapis.user.User import User
 
 class TestUser(unittest.TestCase):
 
+    @classmethod
+    def setUpClass(cls):
+        logging.basicConfig(level=logging.INFO)
 
     def setUp(self):
         self.log = logging.getLogger(self.__class__.__name__)
-
-
-    def tearDown(self):
-        pass
 
 
     def test_hash_verify_password(self):
@@ -37,15 +36,21 @@ class TestUser(unittest.TestCase):
         user.hash_password(TestConstants.password)
         self.assertIsNotNone(user.password_hash)
         self.assertTrue(user.verify_password(TestConstants.password))
+        self.log.info(
+            "\ntest_hash_verity_password\n"
+            "Plain:  %s\n"
+            "Hashed: %s\n",
+            TestConstants.password, user.password_hash
+        )
 
 
     def test_equality(self):
         user1 = User(id=TestConstants.user, username=TestConstants.username + "1")
         user2 = User(id=TestConstants.user, username=TestConstants.username + "2")
+        self.log.info("\ntest_equality - comparing:\n%s\nwith\n%s",user1,user2)
         self.assertEqual(user1,user2)
 
 
 # Unit test Harness
-if __name__ == '__main__':
-    logging.basicConfig(level=logging.DEBUG)
+if __name__ is '__main__':
     unittest.main()

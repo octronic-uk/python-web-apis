@@ -19,6 +19,6 @@ from bson.objectid import ObjectId
 user      = ObjectId('221299887766554433221100')
 title     = "test Title"
 content   = "<h2>test Content!</h2>"
-username  = "test Username"
+username  = "Test Username"
 email     = "test.email@unittest.local"
 password  = "_Test%Password_"

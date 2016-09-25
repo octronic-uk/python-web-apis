@@ -38,8 +38,8 @@ class UserDB(MongoInterface):
             :param database:
         """
         super().__init__(host=host, port=port, database=database)
-        self.mongo_collection = self.mongo_database[Constants.user_collection_name]
-        self.log.info("Created UserDB %s", self)
+        self.mongo_collection = self.mongo_database[Constants.collection_name]
+        #self.log.info("Created UserDB %s", self)
 
     def create_user(self,username,password):
         """
@@ -48,47 +48,51 @@ class UserDB(MongoInterface):
             :return:
         """
         inserted_user = self.mongo_collection.insert_one({
-            Constants.username      : username,
-            Constants.password_hash : password,
-            Constants.email         : "",
-            Constants.created          : datetime.now(),
+            CommonConstants.username : username,
+            Constants.password_hash  : password,
+            Constants.email          : "",
+            CommonConstants.created  : datetime.now(),
         })
-        return self.get_user_by_id(inserted_user.inserted_id)
+
+        return self.get_user(user_id=inserted_user.inserted_id)
 
 
-    def get_user_by_id(self,user_id):
-        record = self.mongo_collection.find_one({Constants.mongo_id : ObjectId(user_id)})
-        return User(record=record)
+    def get_user(self,user_id=None,username=None):
+        record = None
 
+        if user_id is not None:
+            record = self.mongo_collection.find_one({CommonConstants.mongo_id : ObjectId(user_id)})
+        elif username is not None:
+            record = self.mongo_collection.find_one({CommonConstants.username : username})
 
-    def get_user_by_username(self,username):
-        record = self.mongo_collection.find_one({Constants.username : username})
-        return User(record=record)
+        if record is not None:
+            return User(record=record)
+        else:
+            return None
 
 
     def update_user(self, userObject):
         self.mongo_collection.update_one(
-            {Constants.mongo_id : userObject.id},
+            {CommonConstants.mongo_id : userObject.id},
             {
                 '$set' : {
-                    Constants.username : userObject.username,
+                    CommonConstants.username : userObject.username,
                     Constants.password_hash : userObject.password_hash,
                     Constants.email : userObject.email,
                 }
             }
         )
-        return self.get_user_by_id(userObject.id)
+        return self.get_user(user_id=userObject.id)
 
 
     def delete_user(self,userObject):
-        self.mongo_collection.delete_one({Constants.mongo_id : userObject.id})
+        self.mongo_collection.delete_one({CommonConstants.mongo_id : userObject.id})
 
 
-    def user_exists_by_id(self,user_id):
-        result = self.mongo_collection.find({Constants.mongo_id : user_id})
-        return result.count() > 0
-
-
-    def user_exists_by_username(self,username):
-        result = self.mongo_collection.find_one({Constants.username, username})
-        return result.count() > 0
+    def user_exists(self, user_id=None, username=None):
+        result = None
+        if user_id is not None:
+            result = self.mongo_collection.find_one({CommonConstants.mongo_id : user_id})
+        elif username is not None:
+            result = self.mongo_collection.find_one({CommonConstants.username : username})
+        return result is not None
