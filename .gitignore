@@ -1,7 +1,8 @@
-__pycache__
-.DS_Store
+**/__pycache__
+**/.DS_Store
 .pyenv
 pylint.out
 coverage.xml
 .coverage
 nosetests.xml
+*.swp

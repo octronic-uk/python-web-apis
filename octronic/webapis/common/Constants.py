@@ -16,6 +16,7 @@
 #
 
 null = 'null'
+error = 'error'
 mongo_id = '_id'
 user = 'user'
 username = 'username'

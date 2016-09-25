@@ -1,0 +1,95 @@
+<html>
+  <head>
+    <title>Octronic WebApis Test Page</title>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="../octronic.webapis.event.js"></script>
+    <script src="../octronic.webapis.user.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+
+    <script type='text/javascript'>
+
+      var onCreateUserButtonClicked = function() {
+          var username = $("#create-username").val();
+          var password = $("#create-password").val();
+
+          if (username == "" || password == "") {
+              console.log("Create User - Username/Password must not be empty");
+          } else {
+              console.log("Create User - Username:",username,"Password:",password);
+              var api = OctronicUserApi("http://localhost:5000");
+              api.createUser(username, password,
+                  function(result) {
+                      console.log(result); 
+                  }
+              );
+          }
+      };
+
+      var onGetTokenButtonClicked = function() {
+          var username = $("#login-username").val();
+          var password = $("#login-password").val();
+
+          if (username == "" || password == "") {
+              console.log("Get Token - Username/Password must not be empty");
+          } else {
+              console.log("Get Token - Username:",username,"Password:",password);
+              var api = OctronicUserApi("http://localhost:5000");
+              api.get_token(username, password,
+                  function(result) {
+                      console.log("Get token result",result);
+                  }
+              );
+          }
+      };
+
+    </script>
+
+  </head>
+  <body>
+    <div class="container-fluid">
+      <br><br>
+      <div class="row">
+        <!-- Create User Panel -->
+        <div class="col-md-4">
+          <div class="panel panel-default">
+            <div class="panel-heading">Create User</div>
+            <div class="panel-body">
+              <div class="form-group">
+                <label for="create-username">Username</label>
+                <input class="form-control" type="text" id="create-username" value="html_test_user"/>
+              </div>
+              <div class="form-group">
+                <label for="create-password">Password</label>
+                <input class="form-control" type="text" id="create-password" value="html_test_pass"/>
+              </div>
+            </div>
+            <div class="panel-footer">
+              <button class="btn btn-success" onclick="onCreateUserButtonClicked()">Create User</button>
+            </div>
+          </div>
+        </div>
+        <!-- Token Panel -->
+        <div class="col-md-4">
+          <div class="panel panel-default">
+            <div class="panel-heading">Get Token</div>
+            <div class="panel-body">
+              <div class="form-group">
+                <label for="login-username">Username</label>
+                <input class="form-control" type="text" id="login-username" value="html_test_user"/>
+              </div>
+              <div class="form-group">
+                <label for="login-password">Password</label>
+                <input class="form-control" type="text" id="login-password" value="html_test_pass"/>
+              </div>
+            </div>
+            <div class="panel-footer">
+              <button class="btn btn-success" onclick="onGetTokenButtonClicked()">Get Token</button>
+            </div>
+          </div>
+        </div>
+      </div> <!-- end class="row" -->
+    </div>
+  </body>
+</html>

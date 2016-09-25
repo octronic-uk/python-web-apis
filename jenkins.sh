@@ -14,7 +14,7 @@ virtualenv --no-site-packages $PYENV_HOME
 echo Using Python: `which python`
 echo Using Pip: `which pip`
 
-pip install ez_setup bson pymongo flask passlib flask_httpauth nosexcover pylint
+pip install ez_setup bson pymongo flask passlib flask_httpauth nosexcover pylint flask_cors pycrypto
 pip install .
 
 nosetests --with-xcoverage --with-xunit --cover-package=octronic.webapis --cover-erase octronic/webapis/*

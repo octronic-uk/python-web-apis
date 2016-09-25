@@ -33,7 +33,7 @@ class TestSession(unittest.TestCase):
 
 
     def test_has_expired(self):
-        session = Session(expire_after_sec=5)
+        session = Session(time_to_live=5)
         self.log.info(session)
         time.sleep(4)
         self.assertFalse(session.has_expired())
@@ -42,7 +42,7 @@ class TestSession(unittest.TestCase):
 
 
     def test_renew(self):
-        session = Session(expire_after_sec=5)
+        session = Session(time_to_live=5)
 
         self.assertFalse(session.has_expired())
         self.log.info("%d %s",1,session)
@@ -64,3 +64,4 @@ class TestSession(unittest.TestCase):
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)
     unittest.main()
+

@@ -39,13 +39,10 @@ class TestSessionDB(unittest.TestCase):
         self.assertIsNotNone(session)
 
 
-    def test_get_sessions(self):
+    def test_get_session(self):
         self.session_db.create_session(user_id=TestConstants.user)
-        self.session_db.create_session(user_id=TestConstants.user)
-        self.session_db.create_session(user_id=TestConstants.user)
-        self.session_db.create_session(user_id=TestConstants.user)
-        retrieved_sessions = self.session_db.get_sessions(user_id=TestConstants.user)
-        self.assertGreater(len(retrieved_sessions),0)
+        retrieved_sessions = self.session_db.get_session(user_id=TestConstants.user)
+        self.assertIsNotNone(retrieved_sessions)
 
 
     def test_update_session(self):
@@ -60,6 +57,8 @@ class TestSessionDB(unittest.TestCase):
         self.assertFalse(self.session_db.session_exists(session=session))
 
 
+    def test_clear_expired_sessions(self):
+        pass
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)

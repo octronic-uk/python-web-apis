@@ -16,5 +16,5 @@
 #
 
 collection_name = "sessions"
-expire_after = 'expire_after'
+expire_time = 'expire_time'
 time_to_live = 600

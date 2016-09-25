@@ -20,7 +20,6 @@ from octronic.webapis.common.MongoInterface import MongoInterface
 from octronic.webapis.common import Constants as CommonConstants
 from octronic.webapis.session import Constants
 from octronic.webapis.session.Session import Session
-from itsdangerous import (TimedJSONWebSignatureSerializer as Serializer, BadSignature, SignatureExpired)
 
 
 class SessionDB(MongoInterface):
@@ -58,29 +57,26 @@ class SessionDB(MongoInterface):
             inserted_session = self.mongo_collection.insert_one({
                 CommonConstants.user     : user_arg,
                 CommonConstants.created  : now,
-                Constants.expire_after   : expire,
+                Constants.expire_time    : expire,
             })
 
-            sessions = self.get_sessions(session_id=inserted_session.inserted_id)
-
-            if len(sessions) > 0:
-                return sessions[0]
-            else:
-                return None
+            session = self.get_session(session_id=inserted_session.inserted_id)
+            return session
 
         else:
             return None
 
+    def get_session(self, session=None, session_id=None, user_id=None):
+        record = None
 
-    def get_sessions(self, session=None, session_id=None, user_id=None):
-        records = None
         if session is not None:
-            records = self.mongo_collection.find({CommonConstants.mongo_id : session.id})
+            record = self.mongo_collection.find_one({CommonConstants.mongo_id : session.id})
         elif session_id is not None:
-            records = self.mongo_collection.find({CommonConstants.mongo_id : session_id })
+            record = self.mongo_collection.find_one({CommonConstants.mongo_id : session_id })
         elif user_id is not None:
-            records = self.mongo_collection.find({CommonConstants.user : user_id })
-        return [Session(record=record) for record in records]
+            record = self.mongo_collection.find_one({CommonConstants.user : user_id })
+
+        return Session(record=record)
 
 
     def update_session(self,session):
@@ -89,23 +85,18 @@ class SessionDB(MongoInterface):
             {
                 '$set': {
                     CommonConstants.user: session.user,
-                    Constants.expire_after: session.expire_after,
+                    Constants.expire_time : session.expire_time,
                     CommonConstants.created: session.created,
                 }
             }
         )
 
-        sessions = self.get_sessions(session=session)
-
-        if sessions.count(False) > 0:
-            return sessions[0]
-        else:
-            return None
+        session = self.get_session(session=session)
+        return session
 
 
-    def delete_sessions(self, session=None, user_id=None):
+    def delete_session(self, session=None, user_id=None):
         result = None
-
         if session is not None:
             result = self.mongo_collection.delete_many({CommonConstants.mongo_id : session.id})
         elif user_id is not None:
@@ -114,9 +105,20 @@ class SessionDB(MongoInterface):
         return result
 
 
-    def session_exists(self,session=None):
+    def session_exists(self,session=None, session_id=None):
         if session is not None:
-           sessions = self.mongo_collection.find({CommonConstants.mongo_id: session.id})
-           return sessions.count(True) > 0
+           session = self.mongo_collection.find_one({CommonConstants.mongo_id: session.id})
+           return session is not None
+        elif session_id is not None:
+            session = self.mongo_collection.find_one({CommonConstants.mongo_id: session_id})
+            return session is not None
         else:
             return False
+
+
+    def clear_expired_sessions(self):
+        return self.mongo_collection.find_and_delete({
+            Constants.expire_time : {
+                "$lt" : datetime.datetime.now()
+            }
+        })
