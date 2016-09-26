@@ -1,10 +1,13 @@
 from flask import Flask, abort, request, jsonify, g, url_for
 from flask_httpauth import HTTPBasicAuth
 from flask_cors import CORS
+import json
 from octronic.webapis.user.UserDB import UserDB
 from octronic.webapis.session.SessionDB import SessionDB
+from octronic.webapis.event.EventDB import EventDB
 from octronic.webapis.common import Constants
-from Crypto.Hash import SHA256
+from Crypto.PublicKey import RSA
+import base64
 import logging
 
 log = logging.getLogger(__name__)
@@ -13,15 +16,27 @@ CORS(app)
 auth = HTTPBasicAuth()
 user_db = UserDB()
 session_db = SessionDB()
+event_db = EventDB()
+rsa_key = RSA.generate(Constants.rsa_key_length)
 
 
 @auth.verify_password
 def verify_password(username, password):
-    log.debug("Verifying - User: %s Pass: %s",username,password)
+    log.debug("Verifying...\n--> User: %s\n--> Pass: %s",username,password)
     if password == Constants.token:
         token = username
-        log.debug("Authenticating token %s",token)
-        session = session_db.get_session(session_id=token)
+        try:
+            log.debug("Authenticating token %s",token)
+            token_bytes=base64.b64decode(token)
+            token_decrypted = rsa_key.decrypt(token_bytes)
+            token_string = str(token_decrypted,encoding='utf-8')
+            log.debug("Decrypted token to %s",token_string)
+            session = session_db.get_session(session_id=token_string)
+        except:
+            log.error("Error decrypting token!")
+            event = {"TokenError":str(request.remote_addr)}
+            event_db.insert_event(None,None,event)
+            return False
 
         if session is not None:
             log.debug("Found session %s",session)
@@ -113,9 +128,11 @@ def get_auth_token():
 
     if session is not None:
         log.debug("Returning session %s",session)
+        signed_token = str(base64.b64encode(rsa_key.encrypt(str(session.id).encode(),None)[0]),encoding='ascii')
+        log.debug("Signed token: %s",signed_token)
         return jsonify(
             {
-                Constants.token : str(session.id), #SHA256.new(str(session.id).encode()).hexdigest(),
+                Constants.token : signed_token,
                 Constants.expire_time : session.expire_time
             }
         )

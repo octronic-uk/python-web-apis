@@ -40,4 +40,4 @@ time_to_live = 600
 events_collection_name = "events"
 event = 'event'
 
-
+rsa_key_length = 2048
