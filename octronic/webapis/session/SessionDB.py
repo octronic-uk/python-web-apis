@@ -17,25 +17,25 @@
 
 import datetime
 from octronic.webapis.common.MongoInterface import MongoInterface
-from octronic.webapis.common import Constants as CommonConstants
-from octronic.webapis.session import Constants
+from octronic.webapis.common import Constants
 from octronic.webapis.session.Session import Session
+from bson.objectid import ObjectId
 
 
 class SessionDB(MongoInterface):
 
 
     def __init__(self,
-                 host=CommonConstants.localhost,
-                 port=CommonConstants.mongo_port,
-                 database=CommonConstants.default_db):
+                 host=Constants.localhost,
+                 port=Constants.mongo_port,
+                 database=Constants.default_db):
         """
             :param host:     Mongo host
             :param port:     Mongo Port
             :param database: Mongo Database
         """
         super().__init__(host=host,port=port,database=database)
-        self.mongo_collection = self.mongo_database[Constants.collection_name]
+        self.mongo_collection = self.mongo_database[Constants.sessions_collection_name]
 
 
     def create_session(self, user=None, user_id=None, time_to_live=Constants.time_to_live):
@@ -55,8 +55,8 @@ class SessionDB(MongoInterface):
 
         if user_arg is not None:
             inserted_session = self.mongo_collection.insert_one({
-                CommonConstants.user     : user_arg,
-                CommonConstants.created  : now,
+                Constants.user     : user_arg,
+                Constants.created  : now,
                 Constants.expire_time    : expire,
             })
 
@@ -70,23 +70,32 @@ class SessionDB(MongoInterface):
         record = None
 
         if session is not None:
-            record = self.mongo_collection.find_one({CommonConstants.mongo_id : session.id})
+            record = self.mongo_collection.find_one({Constants.mongo_id : session.id})
         elif session_id is not None:
-            record = self.mongo_collection.find_one({CommonConstants.mongo_id : session_id })
+            if type(session_id) is not ObjectId:
+                session_id = ObjectId(session_id)
+            record = self.mongo_collection.find_one({Constants.mongo_id : ObjectId(session_id) })
         elif user_id is not None:
-            record = self.mongo_collection.find_one({CommonConstants.user : user_id })
+            if type(user_id) is not ObjectId:
+                user_id = ObjectId(user_id)
+            record = self.mongo_collection.find_one({Constants.user : user_id })
+        else:
+            return None
 
-        return Session(record=record)
+        if record is not None:
+            return Session(record=record)
+        else:
+            return None
 
 
     def update_session(self,session):
         self.mongo_collection.update_one(
-            {CommonConstants.mongo_id: session.id},
+            {Constants.mongo_id: session.id},
             {
                 '$set': {
-                    CommonConstants.user: session.user,
+                    Constants.user: session.user,
                     Constants.expire_time : session.expire_time,
-                    CommonConstants.created: session.created,
+                    Constants.created: session.created,
                 }
             }
         )
@@ -98,19 +107,19 @@ class SessionDB(MongoInterface):
     def delete_session(self, session=None, user_id=None):
         result = None
         if session is not None:
-            result = self.mongo_collection.delete_many({CommonConstants.mongo_id : session.id})
+            result = self.mongo_collection.delete_many({Constants.mongo_id : session.id})
         elif user_id is not None:
-            result = self.mongo_collection.delete_many({CommonConstants.user : user_id})
+            result = self.mongo_collection.delete_many({Constants.user : user_id})
 
         return result
 
 
     def session_exists(self,session=None, session_id=None):
         if session is not None:
-           session = self.mongo_collection.find_one({CommonConstants.mongo_id: session.id})
+           session = self.mongo_collection.find_one({Constants.mongo_id: session.id})
            return session is not None
         elif session_id is not None:
-            session = self.mongo_collection.find_one({CommonConstants.mongo_id: session_id})
+            session = self.mongo_collection.find_one({Constants.mongo_id: session_id})
             return session is not None
         else:
             return False

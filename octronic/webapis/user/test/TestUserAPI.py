@@ -3,9 +3,8 @@ import logging
 import base64
 from flask import json
 from octronic.webapis.user import UserAPI
-from octronic.webapis.user import Constants
 from octronic.webapis.user.test import TestConstants
-from octronic.webapis.common import Constants as CommonConstants
+from octronic.webapis.common import Constants
 from octronic.webapis.user.UserDB import UserDB
 
 
@@ -25,12 +24,12 @@ class TestUserAPI(unittest.TestCase):
 
     def test_create_user(self):
         user = self.user_db.get_user(username=TestConstants.username)
-        self.user_db.delete_user(userObject=user)
-
+        if user is not None:
+            self.user_db.delete_user(userObject=user)
         self.log.info("test_create_user POST to /user/create")
 
         data = json.dumps({
-            CommonConstants.username: str(TestConstants.username),
+            Constants.username: str(TestConstants.username),
             Constants.password: TestConstants.password,
         }).encode('utf-8')
 
@@ -40,8 +39,6 @@ class TestUserAPI(unittest.TestCase):
 
         create_user_response = self.user_api.post('/user/create',data=data,headers=headers)
         self.log.info(create_user_response)
-
-        self.user_db.delete_user(userObject=user)
 
 
     def test_verify_password(self):

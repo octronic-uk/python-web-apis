@@ -2,19 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9575e92f-ea22-4f0d-891d-4f2fd89d73b6" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Javascript/octronic.webapis.event.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Javascript/octronic.webapis.user.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Javascript/test/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/octronic/webapis/event/Constants.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/octronic/webapis/session/Constants.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/octronic/webapis/user/Constants.py" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/jenkins.sh" afterPath="$PROJECT_DIR$/jenkins.sh" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Javascript/octronic.webapis.user.js" afterPath="$PROJECT_DIR$/Javascript/octronic.webapis.user.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Javascript/test/index.html" afterPath="$PROJECT_DIR$/Javascript/test/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/octronic/webapis/common/Constants.py" afterPath="$PROJECT_DIR$/octronic/webapis/common/Constants.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/octronic/webapis/session/Constants.py" afterPath="$PROJECT_DIR$/octronic/webapis/session/Constants.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/octronic/webapis/event/EventDB.py" afterPath="$PROJECT_DIR$/octronic/webapis/event/EventDB.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/octronic/webapis/session/Session.py" afterPath="$PROJECT_DIR$/octronic/webapis/session/Session.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/octronic/webapis/session/SessionDB.py" afterPath="$PROJECT_DIR$/octronic/webapis/session/SessionDB.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/octronic/webapis/session/test/TestSession.py" afterPath="$PROJECT_DIR$/octronic/webapis/session/test/TestSession.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/octronic/webapis/session/test/TestSessionDB.py" afterPath="$PROJECT_DIR$/octronic/webapis/session/test/TestSessionDB.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/octronic/webapis/user/User.py" afterPath="$PROJECT_DIR$/octronic/webapis/user/User.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/octronic/webapis/user/UserAPI.py" afterPath="$PROJECT_DIR$/octronic/webapis/user/UserAPI.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/octronic/webapis/user/UserDB.py" afterPath="$PROJECT_DIR$/octronic/webapis/user/UserDB.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/octronic/webapis/user/test/TestUserAPI.py" afterPath="$PROJECT_DIR$/octronic/webapis/user/test/TestUserAPI.py" />
     </list>
     <ignored path="python-web-apis.git.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -33,30 +34,7 @@
     <favorites_list name="python-web-apis.git" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="UserAPI.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/octronic/webapis/user/UserAPI.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1836">
-              <caret line="102" column="60" selection-start-line="102" selection-start-column="60" selection-end-line="102" selection-end-column="60" />
-              <folding>
-                <element signature="e#0#60#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="jenkins.sh" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/jenkins.sh">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
-              <caret line="9" column="50" selection-start-line="9" selection-start-column="50" selection-end-line="9" selection-end-column="50" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -100,26 +78,26 @@
         <option value="$PROJECT_DIR$/octronic/webapis/session/test/TestSessionAPI.py" />
         <option value="$PROJECT_DIR$/octronic/webapis/session/test/TestConstants.py" />
         <option value="$PROJECT_DIR$/octronic/webapis/common/APIInterface.py" />
-        <option value="$PROJECT_DIR$/octronic/webapis/event/Constants.py" />
-        <option value="$PROJECT_DIR$/octronic/webapis/event/EventDB.py" />
         <option value="$PROJECT_DIR$/octronic/webapis/common/MongoInterface.py" />
         <option value="$PROJECT_DIR$/octronic/webapis/user/test/TestUser.py" />
         <option value="$PROJECT_DIR$/octronic/webapis/user/test/TestConstants.py" />
         <option value="$PROJECT_DIR$/octronic/webapis/user/test/TestUserDB.py" />
-        <option value="$PROJECT_DIR$/octronic/webapis/user/User.py" />
-        <option value="$PROJECT_DIR$/octronic/webapis/user/Constants.py" />
-        <option value="$PROJECT_DIR$/octronic/webapis/user/UserDB.py" />
-        <option value="$PROJECT_DIR$/octronic/webapis/user/test/TestUserAPI.py" />
-        <option value="$PROJECT_DIR$/octronic/webapis/session/Constants.py" />
         <option value="$PROJECT_DIR$/octronic/webapis/session/test/TestSessionDB.py" />
         <option value="$PROJECT_DIR$/octronic/webapis/session/test/TestSession.py" />
-        <option value="$PROJECT_DIR$/octronic/webapis/session/SessionDB.py" />
         <option value="$PROJECT_DIR$/Javascript/octronic.webapis.user.js" />
-        <option value="$PROJECT_DIR$/octronic/webapis/common/Constants.py" />
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/octronic/webapis/session/Session.py" />
-        <option value="$PROJECT_DIR$/octronic/webapis/user/UserAPI.py" />
         <option value="$PROJECT_DIR$/jenkins.sh" />
+        <option value="$PROJECT_DIR$/octronic/webapis/session/Constants.py" />
+        <option value="$PROJECT_DIR$/octronic/webapis/user/Constants.py" />
+        <option value="$PROJECT_DIR$/octronic/webapis/event/Constants.py" />
+        <option value="$PROJECT_DIR$/octronic/webapis/common/Constants.py" />
+        <option value="$PROJECT_DIR$/octronic/webapis/event/EventDB.py" />
+        <option value="$PROJECT_DIR$/octronic/webapis/user/User.py" />
+        <option value="$PROJECT_DIR$/octronic/webapis/user/test/TestUserAPI.py" />
+        <option value="$PROJECT_DIR$/octronic/webapis/user/UserAPI.py" />
+        <option value="$PROJECT_DIR$/octronic/webapis/session/Session.py" />
+        <option value="$PROJECT_DIR$/octronic/webapis/user/UserDB.py" />
+        <option value="$PROJECT_DIR$/octronic/webapis/session/SessionDB.py" />
       </list>
     </option>
   </component>
@@ -243,6 +221,32 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="user" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="python-web-apis.git" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="python-web-apis.git" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="octronic" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapis" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="session" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -265,7 +269,107 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="session" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="python-web-apis.git" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="python-web-apis.git" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="octronic" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapis" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="event" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="python-web-apis.git" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="python-web-apis.git" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="octronic" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapis" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="event" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="python-web-apis.git" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="python-web-apis.git" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="octronic" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapis" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="common" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="python-web-apis.git" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="python-web-apis.git" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="octronic" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapis" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="common" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -309,7 +413,7 @@
       <recent name="$PROJECT_DIR$/Event" />
     </key>
   </component>
-  <component name="RunManager" selected="Bash.jenkins.sh">
+  <component name="RunManager" selected="Python.UserAPI">
     <configuration default="false" name="Unittests in TestUserAPI" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -604,8 +708,8 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Bash.jenkins.sh" />
-        <item index="1" class="java.lang.String" itemvalue="Python.UserAPI" />
+        <item index="0" class="java.lang.String" itemvalue="Python.UserAPI" />
+        <item index="1" class="java.lang.String" itemvalue="Bash.jenkins.sh" />
         <item index="2" class="java.lang.String" itemvalue="Python tests.Unittests in TestUserAPI" />
         <item index="3" class="java.lang.String" itemvalue="Python tests.Unittests in TestSession" />
         <item index="4" class="java.lang.String" itemvalue="Python tests.Unittests in TestSessionDB" />
@@ -686,7 +790,14 @@
       <option name="project" value="LOCAL" />
       <updated>1474825320282</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Javascript Libraries">
+      <created>1474842038271</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1474842038271</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -730,7 +841,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32959184" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.47040817" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29489797" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32959184" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
@@ -779,7 +890,8 @@
     <MESSAGE value="jenkins.sh test script" />
     <MESSAGE value="fixed jenkins.sh test script" />
     <MESSAGE value="Implementing Session Management" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implementing Session Management" />
+    <MESSAGE value="Javascript Libraries" />
+    <option name="LAST_COMMIT_MESSAGE" value="Javascript Libraries" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -792,14 +904,6 @@
     <entry file="file://$PROJECT_DIR$/User/TestUser.py" />
     <entry file="file://$PROJECT_DIR$/User/TestConstants.py" />
     <entry file="file://$PROJECT_DIR$/octronic/webapis/user/setup.py" />
-    <entry file="file://$PROJECT_DIR$/octronic/webapis/event/test/TestEventDB.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/nosetests.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -902,30 +1006,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/octronic/webapis/event/EventDB.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="670">
-          <caret line="55" column="9" selection-start-line="55" selection-start-column="9" selection-end-line="55" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/octronic/webapis/event/Constants.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/octronic/webapis/common/MongoInterface.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="666">
-          <caret line="52" column="8" selection-start-line="52" selection-start-column="8" selection-end-line="52" selection-end-column="8" />
-          <folding>
-            <element signature="e#662#676#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/octronic/webapis/session/test/TestConstants.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="324">
@@ -937,13 +1017,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="141">
           <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/octronic/webapis/event/test/TestEventAPI.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="46" column="13" selection-start-line="40" selection-start-column="8" selection-end-line="48" selection-end-column="9" />
           <folding />
         </state>
       </provider>
@@ -956,88 +1029,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/octronic/webapis/user/test/TestUser.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
-          <folding>
-            <element signature="e#655#669#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/local/Cellar/python3/3.5.2_1/Frameworks/Python.framework/Versions/3.5/lib/python3.5/base64.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/octronic/webapis/user/Constants.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/octronic/webapis/user/test/TestUserDB.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="116" column="10" selection-start-line="116" selection-start-column="10" selection-end-line="116" selection-end-column="10" />
-          <folding>
-            <element signature="e#657#671#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/octronic/webapis/user/User.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-          <folding>
-            <element signature="e#651#709#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/octronic/webapis/session/Constants.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="18" column="10" selection-start-line="18" selection-start-column="10" selection-end-line="18" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/octronic/webapis/session/test/TestSessionDB.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="44" column="47" selection-start-line="44" selection-start-column="47" selection-end-line="44" selection-end-column="47" />
-          <folding>
-            <marker date="1474829651000" expanded="true" signature="845:2116" ph="..." />
-            <marker date="1474829651000" expanded="true" signature="1310:1511" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/octronic/webapis/session/test/TestSession.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="455">
-          <caret line="66" column="0" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
-          <folding>
-            <element signature="e#658#672#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/octronic/webapis/user/UserDB.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
-          <caret line="40" column="14" selection-start-line="40" selection-start-column="14" selection-end-line="40" selection-end-column="14" />
-          <folding>
-            <element signature="e#653#682#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1049,28 +1045,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/octronic/webapis/user/test/TestUserAPI.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="71" column="62" selection-start-line="71" selection-start-column="62" selection-end-line="71" selection-end-column="62" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="18">
           <caret line="1" column="2" selection-start-line="1" selection-start-column="2" selection-end-line="1" selection-end-column="2" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/octronic/webapis/common/Constants.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
           <folding />
         </state>
       </provider>
@@ -1083,22 +1061,131 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/octronic/webapis/session/SessionDB.py">
+    <entry file="file://$PROJECT_DIR$/jenkins.sh">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="62" column="41" selection-start-line="62" selection-start-column="41" selection-end-line="62" selection-end-column="41" />
+        <state relative-caret-position="162">
+          <caret line="9" column="50" selection-start-line="9" selection-start-column="50" selection-end-line="9" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/octronic/webapis/session/Constants.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/octronic/webapis/user/Constants.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/octronic/webapis/common/Constants.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="702">
+          <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/octronic/webapis/event/Constants.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/octronic/webapis/event/EventDB.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="808">
+          <caret line="53" column="12" selection-start-line="53" selection-start-column="12" selection-end-line="53" selection-end-column="12" />
           <folding>
-            <element signature="e#656#671#0" expanded="true" />
-            <marker date="1474829994000" expanded="true" signature="2868:3304" ph="..." />
-            <marker date="1474829994000" expanded="true" signature="3753:3871" ph="..." />
+            <element signature="e#655#684#0" expanded="true" />
+            <marker date="1474844496000" expanded="true" signature="655:720" ph="import ..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/octronic/webapis/common/MongoInterface.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="412">
+          <caret line="26" column="14" selection-start-line="26" selection-start-column="14" selection-end-line="26" selection-end-column="14" />
+          <folding>
+            <element signature="e#662#676#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/octronic/webapis/user/test/TestUserAPI.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="311">
+          <caret line="41" column="0" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/octronic/webapis/event/test/TestEventAPI.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="720">
+          <caret line="44" column="17" selection-start-line="44" selection-start-column="17" selection-end-line="44" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/octronic/webapis/user/test/TestUserDB.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="808">
+          <caret line="116" column="10" selection-start-line="116" selection-start-column="10" selection-end-line="116" selection-end-column="10" />
+          <folding>
+            <element signature="e#657#671#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/octronic/webapis/event/test/TestEventDB.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/octronic/webapis/session/test/TestSession.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1134">
+          <caret line="66" column="0" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/octronic/webapis/session/test/TestSessionDB.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="738">
+          <caret line="44" column="47" selection-start-line="44" selection-start-column="47" selection-end-line="44" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/octronic/webapis/user/test/TestUser.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/octronic/webapis/session/Session.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="149">
-          <caret line="31" column="55" selection-start-line="31" selection-start-column="55" selection-end-line="31" selection-end-column="55" />
+        <state relative-caret-position="540">
+          <caret line="35" column="29" selection-start-line="35" selection-start-column="29" selection-end-line="35" selection-end-column="29" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
@@ -1107,19 +1194,41 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/octronic/webapis/user/UserAPI.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1836">
-          <caret line="102" column="60" selection-start-line="102" selection-start-column="60" selection-end-line="102" selection-end-column="60" />
+        <state relative-caret-position="105">
+          <caret line="23" column="36" selection-start-line="23" selection-start-column="36" selection-end-line="23" selection-end-column="36" />
           <folding>
             <element signature="e#0#60#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/jenkins.sh">
+    <entry file="file://$PROJECT_DIR$/octronic/webapis/user/User.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="9" column="50" selection-start-line="9" selection-start-column="50" selection-end-line="9" selection-end-column="50" />
+        <state relative-caret-position="306">
+          <caret line="28" column="23" selection-start-line="28" selection-start-column="23" selection-end-line="28" selection-end-column="23" />
+          <folding>
+            <element signature="e#651#709#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/octronic/webapis/user/UserDB.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/octronic/webapis/session/SessionDB.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="558">
+          <caret line="94" column="19" selection-start-line="94" selection-start-column="19" selection-end-line="94" selection-end-column="19" />
+          <folding>
+            <element signature="e#656#671#0" expanded="true" />
+            <marker date="1474917941000" expanded="true" signature="3108:3526" ph="..." />
+            <marker date="1474917941000" expanded="true" signature="3963:4075" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>

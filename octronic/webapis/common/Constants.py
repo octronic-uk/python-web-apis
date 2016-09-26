@@ -14,15 +14,30 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-
-null = 'null'
-error = 'error'
-mongo_id = '_id'
-user = 'user'
-username = 'username'
-created = 'created'
-session = 'session'
-event = 'event'
 default_db = "Octronic_WebApis"
 localhost = 'localhost'
 mongo_port = 27017
+
+
+mongo_id = '_id'
+null = 'null'
+error = 'error'
+created = 'created'
+
+users_collection_name = "users"
+user = 'user'
+username = 'username'
+email = 'email'
+password_hash = 'password_hash'
+password = 'password'
+
+sessions_collection_name = "sessions"
+session = 'session'
+expire_time = 'expire_time'
+token = 'token'
+time_to_live = 600
+
+events_collection_name = "events"
+event = 'event'
+
+

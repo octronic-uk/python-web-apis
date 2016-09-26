@@ -17,8 +17,7 @@
 
 from datetime import datetime
 from bson.objectid import ObjectId
-from octronic.webapis.common import Constants as CommonConstants
-from octronic.webapis.event import Constants
+from octronic.webapis.common import Constants
 from octronic.webapis.common.MongoInterface import MongoInterface
 
 
@@ -28,16 +27,16 @@ class EventDB(MongoInterface):
         The class
     """
     def __init__(self,
-                 host=CommonConstants.localhost,
-                 port=CommonConstants.mongo_port,
-                 database=CommonConstants.default_db):
+                 host=Constants.localhost,
+                 port=Constants.mongo_port,
+                 database=Constants.default_db):
         """
             :param host: Mongo Host
             :param port: Mongo Port
             :param database: Mongo Database
         """
         super().__init__(host=host, port=port, database=database)
-        self.mongo_collection = self.mongo_database[Constants.collection_name]
+        self.mongo_collection = self.mongo_database[Constants.events_collection_name]
         self.log.info("Created EventDB %s",self)
 
     def insert_event(self, user, session, event):
@@ -49,8 +48,8 @@ class EventDB(MongoInterface):
         '''
         self.log.info("Inserting event %s %s %s",user,session,event)
         return self.mongo_collection.insert_one({
-            CommonConstants.user    : ObjectId(user),
-            CommonConstants.session : ObjectId(session),
-            CommonConstants.event   : event,
-            CommonConstants.created : datetime.now()
+            Constants.user    : ObjectId(user),
+            Constants.session : ObjectId(session),
+            Constants.event   : event,
+            Constants.created : datetime.now()
         })

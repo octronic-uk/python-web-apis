@@ -1,14 +1,17 @@
 import datetime
-from octronic.webapis.common import Constants as CommonConstants
-from octronic.webapis.session import Constants
+import logging
+from octronic.webapis.common import Constants
 
 class Session():
 
 
     def __init__(self, user_id=None, id=None, created=None, time_to_live=Constants.time_to_live, expire_time=None, record=None):
 
+        self.log = logging.getLogger(self.__class__.__name__)
+
         if record is not None:
             self.from_record(record)
+            self.log.debug("Created from record %s",self)
             return
 
         self.user = user_id
@@ -26,10 +29,11 @@ class Session():
 
 
     def from_record(self,record):
-        self.user = record[CommonConstants.user]
-        self.id = record[CommonConstants.mongo_id]
-        self.created = record[CommonConstants.created]
+        self.user = record[Constants.user]
+        self.id = record[Constants.mongo_id]
+        self.created = record[Constants.created]
         self.expire_time = record[Constants.expire_time]
+        self.log.debug("After from record %s",self)
 
 
     def has_expired(self):

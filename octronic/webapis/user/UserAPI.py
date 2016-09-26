@@ -1,10 +1,9 @@
 from flask import Flask, abort, request, jsonify, g, url_for
 from flask_httpauth import HTTPBasicAuth
 from flask_cors import CORS
-from octronic.webapis.user import Constants
 from octronic.webapis.user.UserDB import UserDB
 from octronic.webapis.session.SessionDB import SessionDB
-from octronic.webapis.common import Constants as CommonConstants
+from octronic.webapis.common import Constants
 from Crypto.Hash import SHA256
 import logging
 
@@ -18,19 +17,35 @@ session_db = SessionDB()
 
 @auth.verify_password
 def verify_password(username, password):
-    log.debug("Verifying - User: %s Pass %s",username,password)
-    user = user_db.get_user(username=username)
-    if not user or not user.verify_password(password):
-        log.error("Unable to verify - User: %s Pass %s",username,password)
-        return False
-    g.user = user
-    return True
+    log.debug("Verifying - User: %s Pass: %s",username,password)
+    if password == Constants.token:
+        token = username
+        log.debug("Authenticating token %s",token)
+        session = session_db.get_session(session_id=token)
+
+        if session is not None:
+            log.debug("Found session %s",session)
+            g.user = user_db.get_user(user_id=str(session.user))
+
+            if g.user is not None:
+                return True
+            else:
+                return False
+        else:
+            return False
+    else:
+        user = user_db.get_user(username=username)
+        if not user or not user.verify_password(password):
+            log.error("Unable to verify - User: %s Pass %s",username,password)
+            return False
+        g.user = user
+        return True
 
 
 @app.route('/user/create', methods=['POST'])
 def create_user():
     if request.json is not None:
-        username = request.json[CommonConstants.username]
+        username = request.json[Constants.username]
         password = request.json[Constants.password]
 
         # missing arguments
@@ -45,7 +60,7 @@ def create_user():
         # existing user
         if user_db.user_exists(username=username):
             log.error("Cannot create user. User %s all ready exists",username)
-            return jsonify({CommonConstants.error : 'User Exists' })
+            return jsonify({Constants.error : 'User Exists' })
 
         user = user_db.create_user(username=username,password=password)
         user.hash_password(password)
@@ -100,7 +115,8 @@ def get_auth_token():
         log.debug("Returning session %s",session)
         return jsonify(
             {
-                'token' : SHA256.new(str(session.id).encode()).hexdigest()
+                Constants.token : str(session.id), #SHA256.new(str(session.id).encode()).hexdigest(),
+                Constants.expire_time : session.expire_time
             }
         )
     else:

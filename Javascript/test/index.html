@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
 
     <script type='text/javascript'>
-
+      var URL="http://localhost:5000";
       var onCreateUserButtonClicked = function() {
           var username = $("#create-username").val();
           var password = $("#create-password").val();
@@ -18,7 +18,7 @@
               console.log("Create User - Username/Password must not be empty");
           } else {
               console.log("Create User - Username:",username,"Password:",password);
-              var api = OctronicUserApi("http://localhost:5000");
+              var api = OctronicUserApi(URL);
               api.createUser(username, password,
                   function(result) {
                       console.log(result); 
@@ -35,14 +35,28 @@
               console.log("Get Token - Username/Password must not be empty");
           } else {
               console.log("Get Token - Username:",username,"Password:",password);
-              var api = OctronicUserApi("http://localhost:5000");
+              var api = OctronicUserApi(URL);
               api.get_token(username, password,
                   function(result) {
                       console.log("Get token result",result);
+                      $("#check-token-button").prop('disabled',false);
+                      $("#token").val(result.token);
+                      $("#expiry").val(result.expire_time);
                   }
               );
           }
       };
+
+    var onCheckTokenButtonClicked = function() {
+        var token = $("#token").val();
+        console.log("Using token",token);
+        var api = OctronicUserApi(URL);
+        api.makeRequest('GET','/user/test_resource',token,
+            function(response) {
+                console.log("Got response from tokenised request",response);
+            }
+        );
+    };
 
     </script>
 
@@ -51,8 +65,8 @@
     <div class="container-fluid">
       <br><br>
       <div class="row">
-        <!-- Create User Panel -->
-        <div class="col-md-4">
+        
+        <div class="col-md-4"><!-- create user panel -->
           <div class="panel panel-default">
             <div class="panel-heading">Create User</div>
             <div class="panel-body">
@@ -69,9 +83,9 @@
               <button class="btn btn-success" onclick="onCreateUserButtonClicked()">Create User</button>
             </div>
           </div>
-        </div>
-        <!-- Token Panel -->
-        <div class="col-md-4">
+        </div><!-- end create uesr col -->
+        
+        <div class="col-md-4"><!-- get token col -->
           <div class="panel panel-default">
             <div class="panel-heading">Get Token</div>
             <div class="panel-body">
@@ -88,8 +102,28 @@
               <button class="btn btn-success" onclick="onGetTokenButtonClicked()">Get Token</button>
             </div>
           </div>
-        </div>
-      </div> <!-- end class="row" -->
-    </div>
+        </div><!-- end get token col--> 
+
+        <div class="col-md-4"><!-- check token col -->
+          <div class="panel panel-default">
+            <div class="panel-heading">Check Token</div>
+            <div class="panel-body">
+              <div class="form-group">
+                <label for="token">Token</label>
+                <input type='text' class="form-control" id="token" />
+              </div>
+              <div class="form-group">
+                <label for="expiry">Expiry</label>
+                <input class="form-control" type="text" id="expiry" />
+              </div>
+            </div>
+            <div class="panel-footer">
+              <button disabled class="btn btn-success" id="check-token-button" onclick="onCheckTokenButtonClicked()">Check Token</button>
+            </div>
+          </div>
+        </div><!-- end check token col-->
+
+      </div> <!-- end row -->
+    </div> <!-- end container -->
   </body>
 </html>

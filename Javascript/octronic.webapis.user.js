@@ -1,8 +1,6 @@
 var OctronicUserApi = function(domain) {
 
     this.domain = domain;
-    this.token = null;
-    this.token_b64 = null;
 
     this.createUser = function(username,password,callback) {
         $.ajax({
@@ -24,24 +22,17 @@ var OctronicUserApi = function(domain) {
             beforeSend: function (xhr) {
                     xhr.setRequestHeader ("Authorization", "Basic " + btoa(username + ":" + password));
             },
-        }).done(function(result) {
-            this.token = result;
-            callback(this.token);
-        });
+        }).done(callback)
     };
 
-    this.makeRequest = function(url,method,token,callback) {
-        if (this.token_b64 != null) {
-            $.ajax({
-                method : method,
-                url    : domain+url,
-                header : {
-                  'Authorization': 'Basic ' + this.token_b64,
-                }
-            }).done(callback);
-        } else {
-            callback(null);
-        }
+    this.makeRequest = function(method,url,token,callback) {
+        $.ajax({
+            method : method,
+            url    : domain+url,
+            beforeSend: function (xhr) {
+                    xhr.setRequestHeader ("Authorization", "Basic " + btoa(token+ ":token"));
+            },
+        }).done(callback);
     };
 
     return this;
