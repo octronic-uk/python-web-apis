@@ -25,12 +25,12 @@ var OctronicUserApi = function(domain) {
         }).done(callback)
     };
 
-    this.makeRequest = function(method,url,token,callback) {
+    this.makeRequest = function(method,url,hash,signature,callback) {
         $.ajax({
             method : method,
             url    : domain+url,
             beforeSend: function (xhr) {
-                    xhr.setRequestHeader ("Authorization", "Basic " + btoa(token+ ":token"));
+                    xhr.setRequestHeader ("Authorization", "Basic " + btoa(hash+ ":"+signature));
             },
         }).done(callback);
     };

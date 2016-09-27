@@ -41,3 +41,4 @@ events_collection_name = "events"
 event = 'event'
 
 rsa_key_length = 2048
+hash = 'hash'

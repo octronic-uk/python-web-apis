@@ -5,67 +5,14 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="../octronic.webapis.event.js"></script>
     <script src="../octronic.webapis.user.js"></script>
+    <script src="test_controller.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
-
-    <script type='text/javascript'>
-      var URL="http://localhost:5000";
-      var onCreateUserButtonClicked = function() {
-          var username = $("#create-username").val();
-          var password = $("#create-password").val();
-
-          if (username == "" || password == "") {
-              console.log("Create User - Username/Password must not be empty");
-          } else {
-              console.log("Create User - Username:",username,"Password:",password);
-              var api = OctronicUserApi(URL);
-              api.createUser(username, password,
-                  function(result) {
-                      console.log(result); 
-                  }
-              );
-          }
-      };
-
-      var onGetTokenButtonClicked = function() {
-          var username = $("#login-username").val();
-          var password = $("#login-password").val();
-
-          if (username == "" || password == "") {
-              console.log("Get Token - Username/Password must not be empty");
-          } else {
-              console.log("Get Token - Username:",username,"Password:",password);
-              var api = OctronicUserApi(URL);
-              api.get_token(username, password,
-                  function(result) {
-                      console.log("Get token result",result);
-                      $("#check-token-button").prop('disabled',false);
-                      $("#token").val(result.token);
-                      $("#expiry").val(result.expire_time);
-                  }
-              );
-          }
-      };
-
-    var onCheckTokenButtonClicked = function() {
-        var token = $("#token").val();
-        console.log("Using token",token);
-        var api = OctronicUserApi(URL);
-        api.makeRequest('GET','/user/test_resource',token,
-            function(response) {
-                console.log("Got response from tokenised request",response);
-            }
-        );
-    };
-
-    </script>
-
   </head>
   <body>
     <div class="container-fluid">
       <br><br>
       <div class="row">
-        
         <div class="col-md-4"><!-- create user panel -->
           <div class="panel panel-default">
             <div class="panel-heading">Create User</div>
@@ -84,7 +31,6 @@
             </div>
           </div>
         </div><!-- end create uesr col -->
-        
         <div class="col-md-4"><!-- get token col -->
           <div class="panel panel-default">
             <div class="panel-heading">Get Token</div>
@@ -103,7 +49,6 @@
             </div>
           </div>
         </div><!-- end get token col--> 
-
         <div class="col-md-4"><!-- check token col -->
           <div class="panel panel-default">
             <div class="panel-heading">Check Token</div>
@@ -113,8 +58,8 @@
                 <textarea rows=7 class="form-control" id="token"></textarea>
               </div>
               <div class="form-group">
-                <label for="expiry">Expiry</label>
-                <input class="form-control" type="text" id="expiry" />
+                <label for="hash">Hash</label>
+                <textarea rows=7 class="form-control" id="hash" ></textarea>
               </div>
             </div>
             <div class="panel-footer">
@@ -122,7 +67,6 @@
             </div>
           </div>
         </div><!-- end check token col-->
-
       </div> <!-- end row -->
     </div> <!-- end container -->
   </body>

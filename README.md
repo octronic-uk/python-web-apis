@@ -8,13 +8,13 @@ are designed to run as standalone apps or with a WSGI such as Gunicorn.
 * All `POST` methods accept `Content-Type: application/json` messages with
   parameters defined below.
 
-## EventTracker
+## Event
 
 An api that allows site events to be recorded.
 
 ### Routes
 
-#### `/events` - POST events with the following format
+#### `/event` - POST events with the following format
 
     {
         'user'    : 'user_id',
@@ -22,6 +22,7 @@ An api that allows site events to be recorded.
         'event'   : 'event'
     }
 
+## Session
 ## User
 
 An api that provides uesr management (CRUD) functionality.

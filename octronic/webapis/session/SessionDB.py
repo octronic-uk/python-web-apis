@@ -126,7 +126,7 @@ class SessionDB(MongoInterface):
 
 
     def clear_expired_sessions(self):
-        return self.mongo_collection.find_and_delete({
+        return self.mongo_collection.delete_many({
             Constants.expire_time : {
                 "$lt" : datetime.datetime.now()
             }
