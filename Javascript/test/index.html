@@ -1,3 +1,19 @@
+<!-- 
+    octronic.webapis.event.js
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
 <html>
   <head>
     <title>Octronic WebApis Test Page</title>
@@ -13,7 +29,8 @@
     <div class="container-fluid">
       <br><br>
       <div class="row">
-        <div class="col-md-4 col-sm-12"><!-- create user panel -->
+        <!-- create user panel -->
+        <div class="col-md-4 col-sm-12">
           <div class="panel panel-default">
             <div class="panel-heading">Create User</div>
             <div class="panel-body">
@@ -30,8 +47,10 @@
               <button class="btn btn-success" onclick="onCreateUserButtonClicked()">Create User</button>
             </div>
           </div>
-        </div><!-- end create uesr col -->
-        <div class="col-md-4 col-sm-12"><!-- get token col -->
+        </div>
+        <!-- end create uesr col -->
+        <!-- get token col -->
+        <div class="col-md-4 col-sm-12">
           <div class="panel panel-default">
             <div class="panel-heading">Get Token</div>
             <div class="panel-body">
@@ -48,34 +67,35 @@
               <button class="btn btn-success" onclick="onGetTokenButtonClicked()">Get Token</button>
             </div>
           </div>
-        </div><!-- end get token col--> 
-        <div class="col-md-4 col-sm-12"><!-- check token col -->
+        </div>
+        <!-- end get token col--> 
+        <!-- check token col -->
+        <div class="col-md-4 col-sm-12">
           <div class="panel panel-default">
             <div class="panel-heading">Check Token</div>
             <div class="panel-body">
-
               <div class="form-group">
                 <label for="user">User</label>
                 <textarea rows=7 class="form-control" id="user"></textarea>
               </div>
-
               <div class="form-group">
                 <label for="hash">Hash</label>
                 <textarea rows=7 class="form-control" id="hash" ></textarea>
               </div>
-
               <div class="form-group">
                 <label for="sig">Signature</label>
                 <textarea rows=7 class="form-control" id="sig"></textarea>
               </div>
-
             </div>
             <div class="panel-footer">
               <button disabled class="btn btn-success" id="check-token-button" onclick="onCheckAuthButtonClicked()">Check Token</button>
             </div>
           </div>
-        </div><!-- end check token col-->
-      </div> <!-- end row -->
-    </div> <!-- end container -->
+        </div>
+        <!-- end check token col-->
+      </div>
+      <!-- end row -->
+    </div>
+    <!-- end container -->
   </body>
 </html>

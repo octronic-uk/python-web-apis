@@ -23,14 +23,10 @@ from octronic.webapis.user.User import User
 
 
 class UserDB(MongoInterface):
-    """
-        This class will connect to a MongoDB instance that holds data for a 'Rated' site.
-        The class
-    """
-    def __init__(self,
-                 host=Constants.localhost,
-                 port=Constants.mongo_port,
-                 database=Constants.default_db):
+    """This class will connect to a MongoDB instance that holds user data."""
+
+
+    def __init__(self, host=Constants.localhost, port=Constants.mongo_port, database=Constants.default_db):
         """
             :param host:
             :param port:
@@ -57,6 +53,11 @@ class UserDB(MongoInterface):
 
 
     def get_user(self,user_id=None,username=None):
+        """
+            Get a User document from the database, by ID or Username.
+            :param user_id: Get the user that matches this id.
+            :param username: Get the user that matches this username.
+        """
         record = None
 
         if user_id is not None:
@@ -71,13 +72,18 @@ class UserDB(MongoInterface):
 
 
     def update_user(self, userObject):
+        """
+            Update a user docuemnt in the database.
+        """
         self.mongo_collection.update_one(
             {Constants.mongo_id : userObject.id},
             {
                 '$set' : {
-                    Constants.username : userObject.username,
+                    Constants.username      : userObject.username,
                     Constants.password_hash : userObject.password_hash,
-                    Constants.email : userObject.email,
+                    Constants.email         : userObject.email,
+                    Constants.phone         : userObject.phone,
+                    Constants.second_factor : userObject.second_factor
                 }
             }
         )
@@ -85,13 +91,26 @@ class UserDB(MongoInterface):
 
 
     def delete_user(self,userObject):
+        """
+            Delete a user document from the database.
+            :param userObject: User to delete.
+        """
         self.mongo_collection.delete_one({Constants.mongo_id : userObject.id})
 
 
     def user_exists(self, user_id=None, username=None):
+        """
+            Check whether a user document exists in the database.
+            :param user_id: User to look for based on id.
+            :param username: User to look for based on username.
+            :return: True/False if user exists.
+        """
         result = None
         if user_id is not None:
             result = self.mongo_collection.find_one({Constants.mongo_id : user_id})
         elif username is not None:
             result = self.mongo_collection.find_one({Constants.username : username})
         return result is not None
+
+
+

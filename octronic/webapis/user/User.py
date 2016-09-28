@@ -1,5 +1,5 @@
 #
-# user.py
+# User.py
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,9 +20,11 @@ from octronic.webapis.common import Constants
 
 
 class User():
+    """User: An object that represents a user in memory."""
 
 
-    def __init__(self, id=None, username=None, password_hash=None, created=None, email=None, record=None):
+    def __init__(self, id=None, username=None, password_hash=None, created=None, email=None, phone=None, second_factor=None, record=None):
+        """User initialiser. Can init with variable arguments or from a UserDB Record."""
         if record is not None:
             self.from_record(record)
         else:
@@ -30,29 +32,37 @@ class User():
             self.username = username
             self.password_hash = password_hash
             self.created = created
+            self.phone = phone
             self.email = email
+            self.second_factor = second_factor
 
 
     def from_record(self,record):
+        """Inflate the User object from a UserDB/Mongo record."""
         return self.__init__(
             id = record[Constants.mongo_id],
             username = record[Constants.username],
+            phone = record[Constants.phone],
             password_hash = record[Constants.password_hash],
             created = record[Constants.created],
-            email = record[Constants.email]
+            email = record[Constants.email],
+            second_factor = record[Constants.second_factor]
         )
 
 
     def verify_password(self,password):
+        """Verify a plaintext password against its stored hash value."""
         return pwd_context.verify(password, self.password_hash)
 
 
     def hash_password(self,password):
+        """Create a password hash from a plaintext password."""
         self.password_hash = pwd_context.encrypt(password)
         return self.password_hash
 
 
     def __repr__(self):
+        """Return a string representation of this User."""
         return "Id: {}\nUn: {}\nCr: {}\nEm: {}".format(self.id, self.username, self.created, self.email)
 
 
