@@ -6,7 +6,6 @@ from octronic.webapis.event.EventDB import EventDB
 from octronic.webapis.common import Constants
 from Crypto.PublicKey import RSA
 from Crypto.Hash import SHA
-from Crypto import Random
 import base64
 import logging
 
@@ -32,31 +31,37 @@ def verify_password(username, password):
 
 
 def token_verification(hash,signature):
-    log.debug("Authenticating hash/signature %s / %s",hash,signature)
+    log.info("Authenticating hash/signature %s / %s",hash,signature)
 
     hash_bytes = base64.b64decode(hash)
     signature_bytes = base64.b64decode(signature)
     signature_string = str(signature_bytes,encoding='ascii')
-    print(signature_string)
     sig_int = int(signature_string)
     signature_verify_result = rsa_key.verify(hash_bytes,(sig_int,None))
 
     if signature_verify_result:
-        return True
+        uid_encrypted_b64 = request.headers.get('From')
+        if uid_encrypted_b64 is not None:
+            uid_encrypted_bytes = base64.b64decode(uid_encrypted_b64)
+            uid_plain = rsa_key.decrypt(uid_encrypted_bytes)
+            uid_plain_str = str(uid_plain,encoding='ascii')
+            log.info("Authenticating user %s",uid_plain_str)
+            g.user = user_db.get_user(user_id=uid_plain_str)
+            return True
+        else:
+            return False
     else:
         return False
-    pass
 
 
 def username_password_verification(username,password):
-    log.debug("Authenticating user %s with username/password.",username)
+    log.info("Authenticating user %s with username/password.",username)
     g.user = user_db.get_user(username=username)
     if not g.user or not g.user.verify_password(password):
-        log.error("Unable to verify - User: %s Pass %s",username,password)
+        log.debug("Unable to verify - User: %s Pass %s",username,password)
         return False
     else:
         return True
-    pass
 
 
 @app.route('/user/create', methods=['POST'])
@@ -104,27 +109,35 @@ def get_auth_token():
 
     uid_str = str(g.user.id)
     uid_bytes = uid_str.encode()
-    uid_hash = SHA.new(uid_bytes).hexdigest().encode()
+
+    encrypted_uid = rsa_key.encrypt(uid_bytes,None)[0]
+    encrypted_uid_b64 = base64.b64encode(encrypted_uid)
+    encrypted_uid_b64_str = str(encrypted_uid_b64,encoding='ascii')
+
+    uid_hash = SHA.new(encrypted_uid).hexdigest().encode()
     uid_hash_b64 = base64.b64encode(uid_hash)
     uid_hash_b64_str = str(uid_hash_b64,encoding='ascii')
-    print(uid_hash_b64_str)
 
     signed_uid_hash = str(rsa_key.sign(uid_hash,1)[0]).encode()
     signed_uid_hash_b64_str = str(base64.b64encode(signed_uid_hash),encoding='ascii')
 
-    log.debug("Signed token: %s",signed_uid_hash_b64_str)
+
+    log.info("Signed token: %s",signed_uid_hash_b64_str)
     return jsonify({
-        Constants.hash : uid_hash_b64_str,
-        Constants.token : signed_uid_hash_b64_str
+        Constants.user      : encrypted_uid_b64_str,
+        Constants.hash      : uid_hash_b64_str,
+        Constants.signature : signed_uid_hash_b64_str,
     })
 
 
 @app.route('/user/test_resource')
 @auth.login_required
 def get_resource():
-    return jsonify({'data': 'Hello, %s!' % g.user.username})
+    return jsonify({
+        'data': 'Hello, %s!' % g.user.username
+    })
 
 
 if __name__ == '__main__':
-    logging.basicConfig(level=logging.DEBUG)
-    app.run(debug=True)
+    #logging.basicConfig(level=logging.DEBUG)
+    app.run(debug=False)

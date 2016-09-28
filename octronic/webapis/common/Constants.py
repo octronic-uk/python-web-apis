@@ -42,3 +42,4 @@ event = 'event'
 
 rsa_key_length = 2048
 hash = 'hash'
+signature = 'signature'

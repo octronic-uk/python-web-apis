@@ -31,21 +31,23 @@ var onGetTokenButtonClicked = function() {
             function(result) {
                 console.log("Get token result",result);
                 $("#check-token-button").prop('disabled',false);
-                $("#token").val(result.token);
+                $("#user").val(result.user);
                 $("#hash").val(result.hash);
+                $("#sig").val(result.signature);
             }
         );
     }
 };
 
-var onCheckTokenButtonClicked = function() {
-    var token = $("#token").val();
-    var hash = $("#hash").val()
-    console.log("Using token",token);
+var onCheckAuthButtonClicked = function() {
+    console.log("Checking Authorisation...");
+    var user = $("#user").val();
+    var hash = $("#hash").val();
+    var sig  = $("#sig").val();
     var api = OctronicUserApi(URL);
-    api.makeRequest('GET','/user/test_resource',hash, token,
+    api.makeRequest('GET','/user/test_resource',user, hash, sig,
         function(response) {
-            console.log("Got response from tokenised request",response);
+            console.log("Got response from authorised request",response);
         }
     );
 };
