@@ -22,6 +22,10 @@ mongo_port = 27017
 mongo_id = '_id'
 null = 'null'
 
+# SMTP
+smtp_port = 25
+smtps_port = 465
+
 # Misc
 error = 'error'
 created = 'created'

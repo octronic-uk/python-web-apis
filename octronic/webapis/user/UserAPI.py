@@ -22,10 +22,16 @@ from flask_cors import CORS
 from octronic.webapis.user.UserDB import UserDB
 from octronic.webapis.event.EventDB import EventDB
 from octronic.webapis.common import Constants
+from octronic.webapis.common.SMTPMailer import SMTPMailer
 from Crypto.PublicKey import RSA
 from Crypto.Hash import SHA
+from Crypto.Random import random
 import base64
 import logging
+
+# Constants
+two_factor_min = 100000
+two_factor_max = 999999
 
 # Module Variables
 log = logging.getLogger(__name__)
@@ -35,7 +41,8 @@ auth = HTTPBasicAuth()
 user_db = UserDB()
 event_db = EventDB()
 rsa_key = RSA.generate(Constants.rsa_key_length)
-
+rng = random
+mailer = SMTPMailer(host='octronic.co.uk', port=Constants.smtp_port, sender="noreply@octronic.co.uk")
 
 @auth.verify_password
 def verify_password(username, password):
@@ -139,6 +146,7 @@ def get_auth_token():
     signed_uid_hash = str(rsa_key.sign(uid_hash,1)[0]).encode()
     signed_uid_hash_b64_str = str(base64.b64encode(signed_uid_hash),encoding='ascii')
 
+    send_second_factor();
 
     log.info("Signed token: %s",signed_uid_hash_b64_str)
     return jsonify({
@@ -146,6 +154,26 @@ def get_auth_token():
         Constants.hash      : uid_hash_b64_str,
         Constants.signature : signed_uid_hash_b64_str,
     })
+
+def send_second_factor():
+    if g.user is None:
+        log.error("No user to send second factor to")
+        return
+    else:
+        if g.user.email is None:
+            log.error("User %s has no email address",g.user)
+            return
+        else:
+            log.info("Sending second factor to %s",g.user.email)
+            mailer.send(subject="Octronic: Your Two-Factor Pin",body=generate_second_factor(),to=g.user.email)
+    return
+
+
+def generate_second_factor():
+    pin = str(random.randint(two_factor_min,two_factor_max))
+    g.user.second_factor = pin
+    user_db.update_user(g.user)
+    return "Your two factor login pin is: " + pin
 
 
 @app.route('/user/test_resource')
@@ -157,5 +185,5 @@ def get_resource():
 
 
 if __name__ == '__main__':
-    #logging.basicConfig(level=logging.DEBUG)
-    app.run(debug=False)
+    logging.basicConfig(level=logging.DEBUG)
+    app.run(debug=True)
