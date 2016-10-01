@@ -19,15 +19,20 @@
 
 from distutils.core import setup
 
-setup(name='webapis',
+setup(name='WebApis',
     version='1.0',
-    description='Octronic Web APIs',
+    description='Octronic Python Web APIs',
     author="Ash '80' Thompson",
     author_email='ash@octronic.co.uk',
     url='https://octronic.co.uk/',
     packages=[
+        'octronic.webapis.common',
+        'octronic.webapis.common.test',
         'octronic.webapis.event',
-        'octronic.webapis.session',
-        'octronic.webapis.user'
+        'octronic.webapis.event.test',
+        'octronic.webapis.multifactor',
+        'octronic.webapis.multifactor.test',
+        'octronic.webapis.user',
+        'octronic.webapis.user.test',
     ],
 )

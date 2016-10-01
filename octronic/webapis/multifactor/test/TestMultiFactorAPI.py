@@ -20,10 +20,10 @@ import unittest
 import logging
 import base64
 from flask import json
-from octronic.webapis.user import MultiFactorAPI
-from octronic.webapis.user.test import TestConstants
 from octronic.webapis.common import Constants
+from octronic.webapis.multifactor import MultiFactorAPI
 from octronic.webapis.user.UserDB import UserDB
+from octronic.webapis.multifactor.test import TestConstants
 
 
 class TestMultiFactorAPI(unittest.TestCase):
@@ -36,7 +36,7 @@ class TestMultiFactorAPI(unittest.TestCase):
 
     def setUp(self):
         self.log = logging.getLogger(self.__class__.__name__)
-        self.user_api = MultiFactorAPI.app.test_client()
+        self.multifactor_api = MultiFactorAPI.app.test_client()
         self.user_db = UserDB()
 
 
@@ -55,7 +55,7 @@ class TestMultiFactorAPI(unittest.TestCase):
             "Content-Type": "application/json"
         }
 
-        create_user_response = self.user_api.post('/user/create',data=data,headers=headers)
+        create_user_response = self.multifactor_api.post('/user/create',data=data,headers=headers)
         self.log.info(create_user_response)
 
 
@@ -64,7 +64,10 @@ class TestMultiFactorAPI(unittest.TestCase):
         self.log.info('test_verify_password %s status: %s',good_response,good_response.status_code)
         self.assertEqual(good_response.status_code,200)
 
-        bad_cred_response = self.open_with_auth('/user/test_resource',username="IncorrectUsername",password="IncorrectPassword")
+        bad_cred_response = self.open_with_auth('/user/test_resource',
+            username="IncorrectUsername",
+            password="IncorrectPassword"
+        )
         self.log.info('test_verify_password %s status: %s',bad_cred_response,bad_cred_response.status_code)
         self.assertEqual(bad_cred_response.status_code,401)
 
@@ -80,7 +83,7 @@ class TestMultiFactorAPI(unittest.TestCase):
         credential_b64_string = str(credential_b64,encoding='ascii')
         self.log.info("Open with auth credential string %s",credential_b64_string)
 
-        return self.user_api.open(
+        return self.multifactor_api.open(
             url,
             method=method,
             headers={

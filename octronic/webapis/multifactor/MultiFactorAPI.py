@@ -58,24 +58,29 @@ def verify_password(username, password):
 def token_verification(hash,signature):
     log.info("Authenticating hash/signature %s / %s",hash,signature)
 
-    hash_bytes = base64.b64decode(hash)
-    signature_bytes = base64.b64decode(signature)
-    signature_string = str(signature_bytes,encoding='ascii')
-    sig_int = int(signature_string)
-    signature_verify_result = rsa_key.verify(hash_bytes,(sig_int,None))
-
-    if signature_verify_result:
-        uid_encrypted_b64 = request.headers.get('From')
-        if uid_encrypted_b64 is not None:
-            uid_encrypted_bytes = base64.b64decode(uid_encrypted_b64)
-            uid_plain = rsa_key.decrypt(uid_encrypted_bytes)
-            uid_plain_str = str(uid_plain,encoding='ascii')
-            log.info("Authenticating user %s",uid_plain_str)
-            g.user = user_db.get_user(user_id=uid_plain_str)
-            return True
+    try:
+        hash_bytes = base64.b64decode(hash)
+        signature_bytes = base64.b64decode(signature)
+        signature_string = str(signature_bytes,encoding='ascii')
+        sig_int = int(signature_string)
+        signature_verify_result = rsa_key.verify(hash_bytes,(sig_int,None))
+    
+        if signature_verify_result:
+            uid_encrypted_b64 = request.headers.get('From')
+            if uid_encrypted_b64 is not None:
+                uid_encrypted_bytes = base64.b64decode(uid_encrypted_b64)
+                uid_plain = rsa_key.decrypt(uid_encrypted_bytes)
+                uid_plain_str = str(uid_plain,encoding='ascii')
+                log.info("Authenticating user %s",uid_plain_str)
+                g.user = user_db.get_user(user_id=uid_plain_str)
+                return True
+            else:
+                return False
         else:
             return False
-    else:
+
+    except Exception as e:
+        log.error(e)
         return False
 
 
@@ -167,8 +172,11 @@ def send_second_factor():
             log.error("User %s has no email address",g.user)
             return
         else:
-            log.info("Sending second factor to %s",g.user.email)
-            mailer.send(subject="Octronic: Your Two-Factor Pin",body=generate_second_factor(),to=g.user.email)
+            try:
+                log.info("Sending second factor to %s",g.user.email)
+                mailer.send(subject="Octronic: Your Two-Factor Pin",body=generate_second_factor(),to=g.user.email)
+            except Exception as ex:
+                log.error("Unable to send second factor %s",ex)
     return
 
 

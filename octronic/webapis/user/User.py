@@ -18,6 +18,15 @@
 from passlib.apps import custom_app_context as pwd_context
 from octronic.webapis.common import Constants
 
+user_attrs = [
+    Constants.mongo_id,
+    Constants.username,
+    Constants.password_hash,
+    Constants.created,
+    Constants.email,
+    Constants.phone,
+    Constants.second_factor
+]
 
 class User():
     """User: An object that represents a user in memory."""
@@ -39,14 +48,23 @@ class User():
 
     def from_record(self,record):
         """Inflate the User object from a UserDB/Mongo record."""
+
+        # Handle non-existant values
+        attrs = {}
+        for attr in user_attrs:
+            try:
+                attrs[attr] = record[attr]
+            except KeyError as key_error:
+                attrs[attr] = ''
+                
         return self.__init__(
-            id = record[Constants.mongo_id],
-            username = record[Constants.username],
-            phone = record[Constants.phone],
-            password_hash = record[Constants.password_hash],
-            created = record[Constants.created],
-            email = record[Constants.email],
-            second_factor = record[Constants.second_factor]
+            id = attrs[Constants.mongo_id],
+            username = attrs[Constants.username],
+            password_hash = attrs[Constants.password_hash],
+            created = attrs[Constants.created],
+            email = attrs[Constants.email],
+            phone = attrs[Constants.phone],
+            second_factor = attrs[Constants.second_factor]
         )
 
 
