@@ -36,7 +36,7 @@ class TestSMTPMailer(unittest.TestCase):
         send_result = self.mailer.send(
             subject='Octronic Two-Factor Unit Test',
             body="Hello form the Octronic Two-Factor Authenticaiton Unit Test",
-            recipients='www@octronic.co.uk'
+            to='www@octronic.co.uk'
         )
         self.log.debug(send_result)
 

@@ -1,5 +1,5 @@
 #
-# UserAPI.py
+# MultiFactorAPI.py
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -80,6 +80,9 @@ def token_verification(hash,signature):
 
 
 def username_password_verification(username,password):
+    """
+        Authenticate a User based on their stored username and password.
+    """
     log.info("Authenticating user %s with username/password.",username)
     g.user = user_db.get_user(username=username)
     if not g.user or not g.user.verify_password(password):

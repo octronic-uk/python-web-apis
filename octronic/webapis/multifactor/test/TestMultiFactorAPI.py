@@ -1,5 +1,5 @@
 #
-# TestUserAPI.py
+# TestMultiFactorAPI.py
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,13 +20,13 @@ import unittest
 import logging
 import base64
 from flask import json
-from octronic.webapis.user import UserAPI
+from octronic.webapis.user import MultiFactorAPI
 from octronic.webapis.user.test import TestConstants
 from octronic.webapis.common import Constants
 from octronic.webapis.user.UserDB import UserDB
 
 
-class TestUserAPI(unittest.TestCase):
+class TestMultiFactorAPI(unittest.TestCase):
 
 
     @classmethod
@@ -36,7 +36,7 @@ class TestUserAPI(unittest.TestCase):
 
     def setUp(self):
         self.log = logging.getLogger(self.__class__.__name__)
-        self.user_api = UserAPI.app.test_client()
+        self.user_api = MultiFactorAPI.app.test_client()
         self.user_db = UserDB()
 
 

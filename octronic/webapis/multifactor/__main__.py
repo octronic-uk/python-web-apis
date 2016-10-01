@@ -15,9 +15,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from octronic.webapis.user import UserAPI
+from octronic.webapis.user import MultiFactorAPI
 import logging
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.DEBUG)
-    UserAPI.app.run(debug=True)
+    MultiFactorAPI.app.run(debug=True)

@@ -7,3 +7,4 @@ coverage.xml
 nosetests.xml
 *.swp
 .idea
+octronic/webapis/common/test/test_config_save.json
