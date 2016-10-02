@@ -23,6 +23,7 @@ class TestJSONConfig(unittest.TestCase):
     """Test script for the JSONConfig Class"""
     test_config_file = 'octronic/webapis/common/test/test_config.json'
     test_config_file_save = 'octronic/webapis/common/test/test_config_save.json'
+    test_non_existant_file = 'octronic/webapis/common/test/non_existant_file.json'
 
     test_key_1 = "Key 1"
     test_key_2 = 32
@@ -36,12 +37,25 @@ class TestJSONConfig(unittest.TestCase):
     test_item_4 = 23.3
     test_item_5 = 'hello'
 
+    application_name_key = 'application_name'
+    listen_addresses_key = 'listen_addresses'
+    port_key = 'port'
+
     def setUp(self):
         self.log = logging.getLogger(self.__class__.__name__)
-        self.config = JSONConfig()
+
 
     def test_create_empty_config(self):
+        self.config = JSONConfig()
         self.assertEqual(self.config.config, {})
+
+
+    def test_create_loaded_config(self):
+        self.config = JSONConfig(filename=self.test_config_file)
+        self.assertTrue(self.application_name_key in self.config.keys())
+        self.assertTrue(self.listen_addresses_key in self.config.keys())
+        self.assertTrue(self.port_key in self.config.keys())
+
 
     def test_load_json_file(self):
         self.config = JSONConfig()
@@ -50,7 +64,22 @@ class TestJSONConfig(unittest.TestCase):
         load_result = self.config.load_file()
         self.assertTrue(load_result)
 
+
+    def test_load_json_file_bad(self):
+        self.config = JSONConfig()
+        self.config.filename = self.test_non_existant_file
+        load_result = self.config.load_file()
+        self.assertFalse(load_result)
+        
+
+    def test_load_json_file_with_filename(self):
+        self.config = JSONConfig()
+        load_result = self.config.load_file(filename=self.test_config_file)
+        self.assertTrue(load_result)
+
+
     def test_bracket_overloading(self):
+        self.config = JSONConfig()
         self.config[self.test_key_1] = self.test_item_1
         self.config[self.test_key_2] = self.test_item_2
         self.config[self.test_key_3] = self.test_item_3
@@ -60,6 +89,7 @@ class TestJSONConfig(unittest.TestCase):
 
 
     def test_save_json_file(self):
+        self.config = JSONConfig()
         self.config[self.test_key_1] = self.test_item_1
         self.config[self.test_key_2] = self.test_item_2
         self.config[self.test_key_3] = self.test_item_3
@@ -67,6 +97,17 @@ class TestJSONConfig(unittest.TestCase):
         self.config[self.test_key_5] = self.test_item_5
         self.config.filename = self.test_config_file_save
         self.assertTrue(self.config.save_file())
+
+
+    def test_save_json_file_bad_filename(self):
+        self.config = JSONConfig()
+        self.config[self.test_key_1] = self.test_item_1
+        self.config[self.test_key_2] = self.test_item_2
+        self.config[self.test_key_3] = self.test_item_3
+        self.config[self.test_key_4] = self.test_item_4
+        self.config[self.test_key_5] = self.test_item_5
+        save_result = self.config.save_file()
+        self.assertFalse(save_result)
 
 
 if __name__ == '__main__':

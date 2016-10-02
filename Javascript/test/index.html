@@ -15,87 +15,119 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <html>
-  <head>
-    <title>Octronic WebApis Test Page</title>
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="../octronic.webapis.event.js"></script>
-    <script src="../octronic.webapis.user.js"></script>
-    <script src="test_controller.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
-  </head>
-  <body>
+    <head>
+        <title>Octronic WebApis Test Page</title>
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="../octronic.webapis.event.js"></script>
+        <script src="../octronic.webapis.user.js"></script>
+        <script src="test_controller.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+        <style>
+            .panel-heading {
+                font-weight: bold;
+            }
+        </style>
+    </head>
+    <body>
     <div class="container-fluid">
-      <br><br>
-      <div class="row">
-        <!-- create user panel -->
-        <div class="col-md-4 col-sm-12">
-          <div class="panel panel-default">
-            <div class="panel-heading">Create User</div>
-            <div class="panel-body">
-              <div class="form-group">
-                <label for="create-username">Username</label>
-                <input class="form-control" type="text" id="create-username" value="html_test_user"/>
-              </div>
-              <div class="form-group">
-                <label for="create-password">Password</label>
-                <input class="form-control" type="text" id="create-password" value="html_test_pass"/>
+        <br><br>
+        <div class="row">
+            <!-- create user panel -->
+            <div class="col-md-6 col-sm-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">1. Create User</div>
+                    <div class="panel-body">
+                        <p>This will create a new user for the API.</p>
+                        <div class="form-group">
+                            <label for="create-username">Username</label>
+                            <input class="form-control" type="text" id="create-username"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="create-password">Password</label>
+                            <input class="form-control" type="text" id="create-password" />
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <button class="btn btn-success" onclick="onCreateUserButtonClicked()">Create User</button>
+                    </div>
+                </div>
+            </div>
+            <!-- end create uesr col -->
+
+            <!-- get token col -->
+            <div class="col-md-6 col-sm-12">
+              <div class="panel panel-default">
+                <div class="panel-heading">2. Request Two-Factor Pin</div>
+                <div class="panel-body">
+                    <p>This will verify the username/password and request two-factor pin.</p>
+                    <div class="form-group">
+                        <label for="login-username">Username</label>
+                        <input class="form-control" type="text" id="login-username" />
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <input class="form-control" type="text" id="login-password" />
+                    </div>
+                </div>
+                <div class="panel-footer">
+                  <button class="btn btn-success" onclick="onRequestTwoFactorButtonClicked()">Request Two-Factor Pin</button>
+                </div>
               </div>
             </div>
-            <div class="panel-footer">
-              <button class="btn btn-success" onclick="onCreateUserButtonClicked()">Create User</button>
+            <!-- end get token col--> 
+
+
+            <!-- verify two-factor pin col -->
+            <div class="col-md-6 col-sm-12">
+              <div class="panel panel-default">
+                <div class="panel-heading">3. Verify Two-Factor Pin</div>
+                <div class="panel-body">
+                  <div class="form-group">
+                    <label for="two-factor-pin">Two-Factor Pin</label>
+                    <input class="form-control" type="text" id="two-factor-pin"/>
+                  </div>
+                </div>
+                <div class="panel-footer">
+                  <button class="btn btn-success" onclick="onVerifyTwoFactorPinButtonClicked()">
+                      Verify Two-Factor Pin
+                  </button>
+                </div>
+              </div>
             </div>
-          </div>
+            <!-- end get token col--> 
+
+
+                <!-- check token col -->
+                <div class="col-md-6 col-sm-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">4. Check Token</div>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <label for="user">User</label>
+                                <textarea rows=3 class="form-control" id="user"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="hash">Hash</label>
+                                <textarea rows=3 class="form-control" id="hash" ></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="sig">Signature</label>
+                                <textarea rows=3 class="form-control" id="sig"></textarea>
+                            </div>
+                        </div>
+                        <div class="panel-footer">
+                            <button class="btn btn-success" id="check-token-button" onclick="onCheckAuthButtonClicked()">
+                                Check Token
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- end check token col-->
+            </div>
+            <!-- end row -->
         </div>
-        <!-- end create uesr col -->
-        <!-- get token col -->
-        <div class="col-md-4 col-sm-12">
-          <div class="panel panel-default">
-            <div class="panel-heading">Get Token</div>
-            <div class="panel-body">
-              <div class="form-group">
-                <label for="login-username">Username</label>
-                <input class="form-control" type="text" id="login-username" value="html_test_user"/>
-              </div>
-              <div class="form-group">
-                <label for="login-password">Password</label>
-                <input class="form-control" type="text" id="login-password" value="html_test_pass"/>
-              </div>
-            </div>
-            <div class="panel-footer">
-              <button class="btn btn-success" onclick="onGetTokenButtonClicked()">Get Token</button>
-            </div>
-          </div>
-        </div>
-        <!-- end get token col--> 
-        <!-- check token col -->
-        <div class="col-md-4 col-sm-12">
-          <div class="panel panel-default">
-            <div class="panel-heading">Check Token</div>
-            <div class="panel-body">
-              <div class="form-group">
-                <label for="user">User</label>
-                <textarea rows=7 class="form-control" id="user"></textarea>
-              </div>
-              <div class="form-group">
-                <label for="hash">Hash</label>
-                <textarea rows=7 class="form-control" id="hash" ></textarea>
-              </div>
-              <div class="form-group">
-                <label for="sig">Signature</label>
-                <textarea rows=7 class="form-control" id="sig"></textarea>
-              </div>
-            </div>
-            <div class="panel-footer">
-              <button disabled class="btn btn-success" id="check-token-button" onclick="onCheckAuthButtonClicked()">Check Token</button>
-            </div>
-          </div>
-        </div>
-        <!-- end check token col-->
-      </div>
-      <!-- end row -->
-    </div>
-    <!-- end container -->
-  </body>
+        <!-- end container -->
+    </body>
 </html>

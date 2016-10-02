@@ -37,10 +37,13 @@ class JSONConfig():
             self.config = {}
 
 
-    def load_file(self):
+    def load_file(self,filename=None):
         """
             Load the configuration from self.filename
         """
+        if filename is not None:
+            self.filename = filename
+
         if self.filename is None:
             self.log.error("Unable to load config. File Name is not set!")
             return False
@@ -49,11 +52,11 @@ class JSONConfig():
             try:
                 json_file = open(self.filename,'r')
                 json_str = json_file.read()
-                self.log.debug("parsing json...\n%s",json_str)
+                # self.log.debug("parsing json...\n%s",json_str)
                 self.config = json.loads(json_str)
                 json_file.close()
                 return self.config is not None
-            except json.decoder.JSONDecodeError as e:
+            except Exception as e:
                 self.log.error(e)
                 return False
 
@@ -72,8 +75,8 @@ class JSONConfig():
                 json_file.close()
                 self.log.info("Configuration file saved to %s",self.filename)
                 return True
-            except:
-                self.log.error("Error saving configuration file %s", self.filename)
+            except Exception as ex:
+                self.log.error("Error saving configuration file %s : %s", self.filename, ex)
                 return False
 
             

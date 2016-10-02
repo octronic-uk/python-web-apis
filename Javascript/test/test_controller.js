@@ -35,7 +35,7 @@ var onCreateUserButtonClicked = function() {
     }
 };
 
-var onGetTokenButtonClicked = function() {
+var onRequestTwoFactorButtonClicked = function() {
     var username = $("#login-username").val();
     var password = $("#login-password").val();
 
@@ -44,16 +44,17 @@ var onGetTokenButtonClicked = function() {
     } else {
         console.log("Get Token - Username:",username,"Password:",password);
         var api = OctronicUserApi(URL);
-        api.get_token(username, password,
+        api.request_second_factor_pin(username, password,
             function(result) {
                 console.log("Get token result",result);
                 $("#check-token-button").prop('disabled',false);
-                $("#user").val(result.user);
-                $("#hash").val(result.hash);
-                $("#sig").val(result.signature);
             }
         );
     }
+};
+
+var onVerifyTwoFactorPinButtonClicked = function() {
+    var two_factor_pin = $("#two-factor-pin").val();
 };
 
 var onCheckAuthButtonClicked = function() {
@@ -68,4 +69,3 @@ var onCheckAuthButtonClicked = function() {
         }
     );
 };
-

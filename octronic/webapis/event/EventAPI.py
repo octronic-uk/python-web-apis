@@ -19,7 +19,7 @@ import logging
 from flask import Flask
 from flask import request
 from octronic.webapis.event.EventDB import EventDB
-from octronic.webapis.event import Constants
+from octronic.webapis.common import Constants
 
 
 events_db = EventDB()

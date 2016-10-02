@@ -44,47 +44,51 @@ rsa_key = RSA.generate(Constants.rsa_key_length)
 rng = random
 mailer = SMTPMailer(host='octronic.co.uk', port=Constants.smtp_port, sender="noreply@octronic.co.uk")
 
-@auth.verify_password
-def verify_password(username, password):
-    if username_password_verification(username,password):
-        return True
-    else:
-        if token_verification(username,password):
+
+def verify_token(func):
+    def wrapped_verify_token():
+        if request.json is not None:
+            hash = request.json[Constants.hash]
+            signature = request.json[Constants.signature]
+            log.info("Authenticating hash/signature %s / %s",hash,signature)
+            try:
+                hash_bytes = base64.b64decode(hash)
+                signature_bytes = base64.b64decode(signature)
+                signature_string = str(signature_bytes,encoding='ascii')
+                sig_int = int(signature_string)
+                signature_verify_result = rsa_key.verify(hash_bytes,(sig_int,None))
+                if signature_verify_result:
+                    uid_encrypted_b64 = request.headers.get('From')
+                    if uid_encrypted_b64 is not None:
+                        uid_encrypted_bytes = base64.b64decode(uid_encrypted_b64)
+                        uid_plain = rsa_key.decrypt(uid_encrypted_bytes)
+                        uid_plain_str = str(uid_plain,encoding='ascii')
+                        log.info("Authenticating user %s",uid_plain_str)
+                        g.user = user_db.get_user(user_id=uid_plain_str)
+                        return True
+                    else:
+                        abort(400)
+                else:
+                    return False
+            except Exception as e:
+                log.error(e)
+                abort(400)
+        else:
+            log.error("Cannot verify token, json body not found!")
+            abort(400)
+
+    return wrapped_verify_token
+
+def verify_second_factor(func):
+    def wrapped_verify_second_factor():
+        if request.json is not None:
             return True
         else:
-            return False
+            abort(400)
+    return wrapped_verify_second_factor
 
-
-def token_verification(hash,signature):
-    log.info("Authenticating hash/signature %s / %s",hash,signature)
-
-    try:
-        hash_bytes = base64.b64decode(hash)
-        signature_bytes = base64.b64decode(signature)
-        signature_string = str(signature_bytes,encoding='ascii')
-        sig_int = int(signature_string)
-        signature_verify_result = rsa_key.verify(hash_bytes,(sig_int,None))
-    
-        if signature_verify_result:
-            uid_encrypted_b64 = request.headers.get('From')
-            if uid_encrypted_b64 is not None:
-                uid_encrypted_bytes = base64.b64decode(uid_encrypted_b64)
-                uid_plain = rsa_key.decrypt(uid_encrypted_bytes)
-                uid_plain_str = str(uid_plain,encoding='ascii')
-                log.info("Authenticating user %s",uid_plain_str)
-                g.user = user_db.get_user(user_id=uid_plain_str)
-                return True
-            else:
-                return False
-        else:
-            return False
-
-    except Exception as e:
-        log.error(e)
-        return False
-
-
-def username_password_verification(username,password):
+@auth.verify_password
+def verify_password(username, password):
     """
         Authenticate a User based on their stored username and password.
     """
@@ -121,47 +125,28 @@ def create_user():
         user.hash_password(password)
         user_db.update_user(user)
 
-        return (jsonify({'username': user.username}), 201, {'Location': url_for('get_user', id=str(user.id) ,_external=True)})
+        return (jsonify({'username': user.username}), 201, {'Location': url_for('get_user_by_id', id=str(user.id) ,_external=True)})
     else:
         log.error("Request has no json body")
         abort(400)
 
 
 @app.route('/user/<id>')
-def get_user(id):
+def get_user_by_id(id):
     g.user = user_db.get_user(user_id=id)
     if not g.user:
         abort(400)
     return jsonify({'username': g.user.username})
 
 
-@app.route('/user/token', methods=['GET'])
+@app.route('/second_factor', methods=['GET'])
 @auth.login_required
-def get_auth_token():
-    log.info("get_auth_token for %s",g.user.id)
+def get_second_factor():
+    if send_second_factor():
+        return "Sending Second Factor", 200
+    else:
+        abort(400)
 
-    uid_str = str(g.user.id)
-    uid_bytes = uid_str.encode()
-
-    encrypted_uid = rsa_key.encrypt(uid_bytes,None)[0]
-    encrypted_uid_b64 = base64.b64encode(encrypted_uid)
-    encrypted_uid_b64_str = str(encrypted_uid_b64,encoding='ascii')
-
-    uid_hash = SHA.new(encrypted_uid).hexdigest().encode()
-    uid_hash_b64 = base64.b64encode(uid_hash)
-    uid_hash_b64_str = str(uid_hash_b64,encoding='ascii')
-
-    signed_uid_hash = str(rsa_key.sign(uid_hash,1)[0]).encode()
-    signed_uid_hash_b64_str = str(base64.b64encode(signed_uid_hash),encoding='ascii')
-
-    send_second_factor();
-
-    log.info("Signed token: %s",signed_uid_hash_b64_str)
-    return jsonify({
-        Constants.user      : encrypted_uid_b64_str,
-        Constants.hash      : uid_hash_b64_str,
-        Constants.signature : signed_uid_hash_b64_str,
-    })
 
 def send_second_factor():
     if g.user is None:
@@ -187,8 +172,36 @@ def generate_second_factor():
     return "Your two factor login pin is: " + pin
 
 
+@app.route('/token',methods=["GET"])
+@verify_second_factor
+def get_token():
+    log.info("get_auth_token for %s",g.user.id)
+
+    uid_str = str(g.user.id)
+    uid_bytes = uid_str.encode()
+
+    encrypted_uid = rsa_key.encrypt(uid_bytes,None)[0]
+    encrypted_uid_b64 = base64.b64encode(encrypted_uid)
+    encrypted_uid_b64_str = str(encrypted_uid_b64,encoding='ascii')
+
+    uid_hash = SHA.new(encrypted_uid).hexdigest().encode()
+    uid_hash_b64 = base64.b64encode(uid_hash)
+    uid_hash_b64_str = str(uid_hash_b64,encoding='ascii')
+
+    signed_uid_hash = str(rsa_key.sign(uid_hash,1)[0]).encode()
+    signed_uid_hash_b64_str = str(base64.b64encode(signed_uid_hash),encoding='ascii')
+
+    log.info("Signed token: %s",signed_uid_hash_b64_str)
+
+    return jsonify({
+        Constants.user      : encrypted_uid_b64_str,
+        Constants.hash      : uid_hash_b64_str,
+        Constants.signature : signed_uid_hash_b64_str,
+    })
+
+
 @app.route('/user/test_resource')
-@auth.login_required
+@verify_token
 def get_resource():
     return jsonify({
         'data': 'Hello, %s!' % g.user.username
