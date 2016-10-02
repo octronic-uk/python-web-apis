@@ -22,10 +22,7 @@ from octronic.webapis.common.MongoInterface import MongoInterface
 
 
 class EventDB(MongoInterface):
-    """
-        This class will connect to a MongoDB instance that holds data for a 'Rated' site.
-        The class
-    """
+    """This object will connect to a MongoDB instance that stores events"""
     def __init__(self,
                  host=Constants.localhost,
                  port=Constants.mongo_port,
@@ -39,11 +36,12 @@ class EventDB(MongoInterface):
         self.mongo_collection = self.mongo_database[Constants.events_collection_name]
         self.log.info("Created EventDB %s",self)
 
+
     def insert_event(self, user, session, event):
         '''
             :param user:    user ID
             :param session: Session ID
-            :param event:  event to record
+            :param event:   Event to record
             :return:        Inserted Record
         '''
         self.log.info("Inserting event %s %s %s",user,session,event)

@@ -45,11 +45,12 @@ class TestEventDB(unittest.TestCase):
             TestConstants.session,
             TestConstants.event
         )
+
+        self.assertIsNotNone(test_event)
+
         if test_event != None:
             self.log.info("test_insert_event %s",test_event.inserted_id)
             self.assertIsNotNone(test_event.inserted_id)
-        else:
-            self.assertTrue(False)
 
 
 if __name__ == '__main__':

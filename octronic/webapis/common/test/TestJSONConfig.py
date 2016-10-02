@@ -42,15 +42,18 @@ class TestJSONConfig(unittest.TestCase):
     port_key = 'port'
 
     def setUp(self):
+        """Set up individual test cases"""
         self.log = logging.getLogger(self.__class__.__name__)
 
 
     def test_create_empty_config(self):
+        """Test creating an empty configuration"""
         self.config = JSONConfig()
         self.assertEqual(self.config.config, {})
 
 
-    def test_create_loaded_config(self):
+    def test_loaded_config(self):
+        """Test that a loaded config contains correct data"""
         self.config = JSONConfig(filename=self.test_config_file)
         self.assertTrue(self.application_name_key in self.config.keys())
         self.assertTrue(self.listen_addresses_key in self.config.keys())
@@ -58,6 +61,7 @@ class TestJSONConfig(unittest.TestCase):
 
 
     def test_load_json_file(self):
+        """Test loading a file with a valid filename set with self.filename"""
         self.config = JSONConfig()
         self.config.filename = self.test_config_file
         self.log.info("test_load_json_file from %s",self.test_config_file)
@@ -65,7 +69,8 @@ class TestJSONConfig(unittest.TestCase):
         self.assertTrue(load_result)
 
 
-    def test_load_json_file_bad(self):
+    def test_load_json_file_bad_filename(self):
+        """Test loading a file with a bad filename set"""
         self.config = JSONConfig()
         self.config.filename = self.test_non_existant_file
         load_result = self.config.load_file()
@@ -73,12 +78,21 @@ class TestJSONConfig(unittest.TestCase):
         
 
     def test_load_json_file_with_filename(self):
+        """Test loading a file with a valid filename passed to load_file"""
         self.config = JSONConfig()
         load_result = self.config.load_file(filename=self.test_config_file)
         self.assertTrue(load_result)
 
 
+    def test_load_json_file_no_filename(self):
+        """Test loading a file with not filename set"""
+        self.config = JSONConfig()
+        load_result = self.config.load_file()
+        self.assertFalse(load_result)
+
+
     def test_bracket_overloading(self):
+        """Test that bracket operators are overloaded correctly"""
         self.config = JSONConfig()
         self.config[self.test_key_1] = self.test_item_1
         self.config[self.test_key_2] = self.test_item_2
@@ -89,6 +103,7 @@ class TestJSONConfig(unittest.TestCase):
 
 
     def test_save_json_file(self):
+        """Test saving a configuration file to disk"""
         self.config = JSONConfig()
         self.config[self.test_key_1] = self.test_item_1
         self.config[self.test_key_2] = self.test_item_2
@@ -99,7 +114,8 @@ class TestJSONConfig(unittest.TestCase):
         self.assertTrue(self.config.save_file())
 
 
-    def test_save_json_file_bad_filename(self):
+    def test_save_json_file_no_filename(self):
+        """Test failing saving a configuration with no filename set."""
         self.config = JSONConfig()
         self.config[self.test_key_1] = self.test_item_1
         self.config[self.test_key_2] = self.test_item_2

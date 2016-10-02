@@ -34,8 +34,13 @@ class TestUser(unittest.TestCase):
     def test_hash_verify_password(self):
         user = User(username=TestConstants.username)
         user.hash_password(TestConstants.password)
-        self.assertIsNotNone(user.password_hash)
-        self.assertTrue(user.verify_password(TestConstants.password))
+
+        hash_result = user.password_hash
+        self.assertIsNotNone(hash_result)
+
+        verify_result = user.verify_password(TestConstants.password)
+        self.assertTrue(verify_result)
+
         self.log.info(
             "\ntest_hash_verity_password\n"
             "Plain:  %s\n"
@@ -48,9 +53,11 @@ class TestUser(unittest.TestCase):
         user1 = User(id=TestConstants.user, username=TestConstants.username + "1")
         user2 = User(id=TestConstants.user, username=TestConstants.username + "2")
         self.log.info("\ntest_equality - comparing:\n%s\nwith\n%s",user1,user2)
-        self.assertEqual(user1,user2)
+        equality_result = user1 == user2
+        self.assertTrue(equality_result)
 
 
 # Unit test Harness
 if __name__ is '__main__':
+    logging.basicConfig(level=logging.INFO)
     unittest.main()
